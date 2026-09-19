@@ -216,3 +216,8 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+
+#Datasets
+/data/Regression_Dataset
+/data/Classification_Dataset
