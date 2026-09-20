@@ -8,7 +8,7 @@
 
 ![Overall](https://img.shields.io/badge/Deliverables%20in%20repo-21%2F50%20marks-FFB300?style=for-the-badge)
 ![Review 1](https://img.shields.io/badge/Review%201-19%2F19%20implementation-2E7D32?style=for-the-badge)
-![Review 2](https://img.shields.io/badge/Review%202-2%2F25-9E9E9E?style=for-the-badge)
+![Review 2](https://img.shields.io/badge/Review%202-0%2F25-9E9E9E?style=for-the-badge)
 
 ![Regression](https://img.shields.io/badge/🔋%20Regression-10%2F10%20algorithms-2E7D32?style=flat-square)
 ![Classification A](https://img.shields.io/badge/🚗%20Classification%20Part%20A-5%2F5-2E7D32?style=flat-square)
@@ -16,7 +16,7 @@
 ![Clustering](https://img.shields.io/badge/🔌%20Clustering-0%2F2-9E9E9E?style=flat-square)
 ![Bonus GUI](https://img.shields.io/badge/🎁%20Bonus%20GUI-Not%20started-9E9E9E?style=flat-square)
 
-*Last updated: 21 September 2026 · 51 commits · at [`571fbbd`](https://github.com/Roots26Hz/ChargeIQ/commit/571fbbd)*
+*Last updated: 21 September 2026 · 53 commits · at [`e33bd0d`](https://github.com/Roots26Hz/ChargeIQ/commit/e33bd0d)*
 
 </div>
 
@@ -87,14 +87,19 @@ Both reviews are in-person presentations. **Every team member must be able to ex
 | 13 | Comparison of all 5 Part-A algorithms | `4fd67a7` | ✅ |
 | 14 | Conclusion | `0356b4f` | ✅ |
 
-### 📄 Documentation
+### 📄 Documentation & Repository Hygiene
 
 | # | Milestone | Commit | Status |
 |:-:|:--|:--|:-:|
-| 01 | README rewritten — both tracks, separate pipelines | `260e7c6` | ✅ |
-| 02 | PROGRESS.md — this board | *pending* | 🚧 |
+| 01 | README rewritten — both tracks, separate pipelines, results tables | `260e7c6` | ✅ |
+| 02 | PROGRESS.md — this board | `5aeec13` | ✅ |
+| 03 | README correction — GridSearchCV model count | `571fbbd` | ✅ |
+| 04 | Repository structure alignment — duplicate notebook removed from `HEAD`, `.DS_Store` untracked, `requirements.txt` pinned | `73c5cd1` | ✅ |
+| 05 | Figure gallery — 27 figures saved to `assets/figures/`, README gallery expanded, classification dataset path fixed | `e33bd0d` | ✅ |
+| 06 | Team table — GitHub IDs column, all three members filled in | *pending* | 🚧 |
+| 07 | Folder READMEs — `notebooks/` and `data/` documented | *pending* | 🚧 |
 
-> ✅ **49 granular commits, no bulk upload.** The guidelines state that a single commit containing all work scores **zero** on the GitHub criterion — the current history comfortably satisfies it.
+> ✅ **53 granular commits, no bulk upload.** The guidelines state that a single commit containing all work scores **zero** on the GitHub criterion — the current history comfortably satisfies it.
 
 ---
 
@@ -144,11 +149,11 @@ Both reviews are in-person presentations. **Every team member must be able to ex
 
 ### Required visualisations
 
-| Plot | Where | Status |
-|:--|:--|:-:|
-| Predicted vs. actual (best model) | §14 | ✅ |
-| Residual plot (best model) | §14 | ✅ |
-| Feature importance (tree-based model) | §11 — Decision Tree | ✅ |
+| Plot | Where | Saved to | Status |
+|:--|:--|:--|:-:|
+| Predicted vs. actual (best model) | §14 | `assets/figures/regression/models/02_predicted_vs_actual.png` | ✅ |
+| Residual plot (best model) | §14 | `assets/figures/regression/models/03_residual_plot.png` | ✅ |
+| Feature importance (tree-based model) | §11 — Decision Tree | `assets/figures/regression/models/01_decision_tree_feature_importance.png` | ✅ |
 
 ---
 
@@ -175,7 +180,7 @@ Both reviews are in-person presentations. **Every team member must be able to ex
 | All 5 Part-A algorithms trained, no errors | ✅ |
 | Accuracy reported per algorithm | ✅ |
 | Weighted F1 reported per algorithm | ✅ |
-| Confusion matrix per algorithm | ✅ 5/5 |
+| Confusion matrix per algorithm | ✅ 5/5 — `assets/figures/classification/models/` |
 | Preliminary comparison table | ✅ §14 + bar chart |
 | Decision tree visualised | ✅ first 3 levels |
 
@@ -252,6 +257,9 @@ Both reviews are in-person presentations. **Every team member must be able to ex
 
 - [x] README with dataset description, problem statement, results table, environment setup and how-to-run *(C2)* — [README.md](README.md)
 - [x] `requirements.txt` present with pinned versions *(C3)* — [requirements.txt](requirements.txt)
+- [x] Single regression notebook; Guidelines-mandated repo layout; `.DS_Store` untracked *(C1/C3)*
+- [x] All 27 figures saved to [`assets/figures/`](assets/figures) by the notebooks and surfaced in the README gallery
+- [x] Folder-level documentation — [`notebooks/README.md`](notebooks/README.md) (per-notebook section maps, dataset paths, how to run) and [`data/README.md`](data/README.md) (expected layout, column-level description of both datasets)
 - [ ] All notebooks run top-to-bottom without errors *(C1)* — ✅ regression, ✅ classification Part A; pending the Part B and clustering work
 
 ### 🎁 Bonus *(up to +2)*
@@ -264,10 +272,11 @@ Both reviews are in-person presentations. **Every team member must be able to ex
 
 | | Item | Impact | Action |
 |:-:|:--|:--|:--|
-| 🟡 | **`a2_*.png` EDA figures modified but uncommitted** — their bytes reverted to the earlier `befa20d` renderings | README embeds all three; the repo and the figures could drift apart | Decide whether to keep or regenerate, then commit |
 | 🟡 | **Classification scores are near-perfect** (Decision Tree 0.9999) | Not a bug — `Model`, `Make` and `Electric Range` are near-deterministic proxies for BEV vs PHEV even after the CAFV column is dropped | Expect a viva question; the Review-2 ROC-AUC work is the natural place to probe it |
 | 🟡 | **Severe feature collinearity** in the regression track — `ambient_temperature` correlates 0.94 with `charge_max_temp`, 0.82 with `charge_time_to_cv`, −0.78 with `Rct` | Linear coefficients cannot be read as isolated effects; some signs flip | Already documented in §C1.1; be ready to explain |
-| 🟡 | **Clustering dataset not yet in `data/`** | Blocks the entire Review-2 clustering track (8 marks) | Source the EV Charging Session dataset early |
+| 🟡 | **Clustering dataset not yet in `data/`** | Blocks the entire Review-2 clustering track (8 marks) | Source the EV Charging Session dataset early; place it in its own `data/Clustering_Dataset/` |
+| 🟡 | **Dataset subfolders cannot carry their own README** — `.gitignore` excludes `/data/Regression_Dataset` and `/data/Classification_Dataset` wholesale, so any file inside them is untracked | A per-folder README would never reach GitHub | Both are documented inside the committable [`data/README.md`](data/README.md) instead |
+| 🟡 | **`app/README.md` and `models/README.md` are 0 bytes** | Both folders are required by the Guidelines layout but carry no explanation | Fill them when the Review-2 GUI and saved-model work begins |
 
 ---
 

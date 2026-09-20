@@ -518,11 +518,11 @@ Where each Review-1 rubric criterion lives. Full mark-by-mark tracking is in **[
 
 ## 👥 Team
 
-| Member | Roll No. | Track focus |
-|:--|:--|:--|
-| `Rutav Desai` | `CB.SC.U4CSE24664` | `Regression (1-5)` |
-| `Chikeersha Vedium` | `CB.SC.U4CSE24615` | `Classification Part A` |
-| `Harshitha Nityanand` | `CB.SC.U4CSE24624` | `Regression (6-10)` |
+| Member | Roll No. | GitHub | Track focus |
+|:--|:--|:--|:--|
+| `Rutav Desai` | `CB.SC.U4CSE24664` | [@Roots26Hz](https://github.com/Roots26Hz) | `Regression (1-5)` |
+| `Chikeersha Vedium` | `CB.SC.U4CSE24615` | [@chikeersha24-bot](https://github.com/chikeersha24-bot) | `Classification Part A` |
+| `Harshitha Nityanand` | `CB.SC.U4CSE24624` | [@Harshi06-code](https://github.com/Harshi06-code) | `Regression (6-10)` |
 
 ---
 
