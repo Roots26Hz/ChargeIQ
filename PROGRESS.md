@@ -8,7 +8,7 @@
 
 ![Overall](https://img.shields.io/badge/Deliverables%20in%20repo-21%2F50%20marks-FFB300?style=for-the-badge)
 ![Review 1](https://img.shields.io/badge/Review%201-19%2F19%20implementation-2E7D32?style=for-the-badge)
-![Review 2](https://img.shields.io/badge/Review%202-0%2F25-9E9E9E?style=for-the-badge)
+![Review 2](https://img.shields.io/badge/Review%202-2%2F25-FFB300?style=for-the-badge)
 
 ![Regression](https://img.shields.io/badge/🔋%20Regression-10%2F10%20algorithms-2E7D32?style=flat-square)
 ![Classification A](https://img.shields.io/badge/🚗%20Classification%20Part%20A-5%2F5-2E7D32?style=flat-square)
@@ -16,7 +16,7 @@
 ![Clustering](https://img.shields.io/badge/🔌%20Clustering-0%2F2-9E9E9E?style=flat-square)
 ![Bonus GUI](https://img.shields.io/badge/🎁%20Bonus%20GUI-Not%20started-9E9E9E?style=flat-square)
 
-*Last updated: 21 September 2026 · 53 commits · at [`e33bd0d`](https://github.com/Roots26Hz/ChargeIQ/commit/e33bd0d)*
+*Last updated: 21 September 2026 · 54 commits · at [`bba01ae`](https://github.com/Roots26Hz/ChargeIQ/commit/bba01ae)*
 
 </div>
 
@@ -96,10 +96,10 @@ Both reviews are in-person presentations. **Every team member must be able to ex
 | 03 | README correction — GridSearchCV model count | `571fbbd` | ✅ |
 | 04 | Repository structure alignment — duplicate notebook removed from `HEAD`, `.DS_Store` untracked, `requirements.txt` pinned | `73c5cd1` | ✅ |
 | 05 | Figure gallery — 27 figures saved to `assets/figures/`, README gallery expanded, classification dataset path fixed | `e33bd0d` | ✅ |
-| 06 | Team table — GitHub IDs column, all three members filled in | *pending* | 🚧 |
-| 07 | Folder READMEs — `notebooks/` and `data/` documented | *pending* | 🚧 |
+| 06 | Team table — GitHub IDs column, all three members filled in | `bba01ae` | ✅ |
+| 07 | Folder READMEs — `notebooks/` and `data/` documented; stale dataset copy removed | `bba01ae` | ✅ |
 
-> ✅ **53 granular commits, no bulk upload.** The guidelines state that a single commit containing all work scores **zero** on the GitHub criterion — the current history comfortably satisfies it.
+> ✅ **54 granular commits, no bulk upload.** The guidelines state that a single commit containing all work scores **zero** on the GitHub criterion — the current history comfortably satisfies it.
 
 ---
 
