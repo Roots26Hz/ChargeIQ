@@ -1,0 +1,24 @@
+# ChargeIQ — 23CSE301 Machine Learning Capstone
+# Python 3.13.3 (matches the kernel both notebooks were executed with)
+#
+#   python3 -m venv .venv && source .venv/bin/activate
+#   pip install -r requirements.txt
+
+# --- core data stack ---
+numpy==2.2.1
+pandas==2.2.3
+
+# --- modelling ---
+scikit-learn==1.9.0
+scipy==1.17.1
+
+# --- visualisation ---
+matplotlib==3.11.0
+seaborn==0.13.2
+
+# --- notebook kernel ---
+ipykernel==7.3.0
+
+# Jupyter front-end. Any recent JupyterLab works; VS Code's notebook editor
+# is an alternative and needs only ipykernel above.
+jupyterlab>=4.0

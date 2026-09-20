@@ -358,9 +358,6 @@ jupyter lab notebooks/regression.ipynb notebooks/classification.ipynb
 
 Then **Run All** on each. Both are deterministic (`random_state=42`) and run top to bottom without manual steps.
 
-> [!WARNING]
-> **Known issue.** `classification.ipynb` currently loads its CSV from `../data/Electric_Vehicle_Population_Data.csv`, but the file now lives at `../data/Classification_Dataset/Electric_Vehicle_Population_Data.csv`. Update that path in the data-loading cell before running the notebook. A fix is pending.
-
 ---
 
 ## 📐 Rubric Coverage Map

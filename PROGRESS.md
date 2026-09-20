@@ -6,9 +6,9 @@
 
 <br>
 
-![Overall](https://img.shields.io/badge/Overall-58%25-FFB300?style=for-the-badge)
-![Review 1](https://img.shields.io/badge/Review%201-Implementation%20Complete-2E7D32?style=for-the-badge)
-![Review 2](https://img.shields.io/badge/Review%202-0%25-9E9E9E?style=for-the-badge)
+![Overall](https://img.shields.io/badge/Deliverables%20in%20repo-21%2F50%20marks-FFB300?style=for-the-badge)
+![Review 1](https://img.shields.io/badge/Review%201-19%2F19%20implementation-2E7D32?style=for-the-badge)
+![Review 2](https://img.shields.io/badge/Review%202-2%2F25-9E9E9E?style=for-the-badge)
 
 ![Regression](https://img.shields.io/badge/🔋%20Regression-10%2F10%20algorithms-2E7D32?style=flat-square)
 ![Classification A](https://img.shields.io/badge/🚗%20Classification%20Part%20A-5%2F5-2E7D32?style=flat-square)
@@ -16,11 +16,13 @@
 ![Clustering](https://img.shields.io/badge/🔌%20Clustering-0%2F2-9E9E9E?style=flat-square)
 ![Bonus GUI](https://img.shields.io/badge/🎁%20Bonus%20GUI-Not%20started-9E9E9E?style=flat-square)
 
-*Last updated: 21 September 2026 · 49 commits · at [`260e7c6`](https://github.com/Roots26Hz/ChargeIQ/commit/260e7c6)*
+*Last updated: 21 September 2026 · 51 commits · at [`571fbbd`](https://github.com/Roots26Hz/ChargeIQ/commit/571fbbd)*
 
 </div>
 
 > **Legend** — ✅ done · 🚧 in progress · ⬜ not started · ⚠️ at risk
+>
+> **Badge meaning** — marks whose deliverable is physically in the repository. Review 1: **19/19** implementation marks done; the remaining 6 (presentation + viva) are earned on the day. Review 2: **2/25** — README (C2) and `requirements.txt` (C3).
 
 ---
 
@@ -216,7 +218,7 @@ Both reviews are in-person presentations. **Every team member must be able to ex
 | B3 | PCA-2D per algorithm + t-SNE for one | 2 | ⬜ |
 | C1 | Code quality | 1 | 🚧 |
 | C2 | README & documentation | 1 | ✅ |
-| C3 | GitHub history + `requirements.txt` | 1 | 🚧 ⚠️ |
+| C3 | GitHub history + `requirements.txt` | 1 | ✅ |
 | D | Presentation & Viva | 8 | ⬜ |
 | — | Bonus — GUI / deployment | +2 | ⬜ |
 
@@ -249,8 +251,8 @@ Both reviews are in-person presentations. **Every team member must be able to ex
 ### 🧩 Pipeline Integration & Quality *(3 marks)*
 
 - [x] README with dataset description, problem statement, results table, environment setup and how-to-run *(C2)* — [README.md](README.md)
-- [ ] All notebooks run top-to-bottom without errors *(C1)* — ✅ regression, ⚠️ classification blocked by the dataset path below
-- [ ] `requirements.txt` present with versions *(C3)* — ⚠️ currently empty
+- [x] `requirements.txt` present with pinned versions *(C3)* — [requirements.txt](requirements.txt)
+- [ ] All notebooks run top-to-bottom without errors *(C1)* — ✅ regression, ✅ classification Part A; pending the Part B and clustering work
 
 ### 🎁 Bonus *(up to +2)*
 
@@ -262,10 +264,6 @@ Both reviews are in-person presentations. **Every team member must be able to ex
 
 | | Item | Impact | Action |
 |:-:|:--|:--|:--|
-| 🔴 | **`classification.ipynb` cannot run as committed** — it loads `../data/Electric_Vehicle_Population_Data.csv`, but the file now lives at `../data/Classification_Dataset/Electric_Vehicle_Population_Data.csv` | Notebook fails on the first data cell; hits Review-2 C1 | Update the path in the data-loading cell |
-| 🔴 | **`requirements.txt` is 0 bytes** | Direct hit on Review-2 C3; nobody can reproduce the environment | `pip freeze` the working env; pin pandas, numpy, scikit-learn, matplotlib, seaborn, jupyterlab |
-| 🟠 | **`notebooks/Regression_part_2.ipynb` deletion not yet committed** | The duplicate notebook is still in `HEAD`, so the repo still shows two regression notebooks | `git rm notebooks/Regression_part_2.ipynb` and commit |
-| 🟡 | **`.DS_Store` files still tracked in git** despite the `.gitignore` entry | Untidy history; a reviewer will notice | `git rm --cached .DS_Store data/.DS_Store` |
 | 🟡 | **`a2_*.png` EDA figures modified but uncommitted** — their bytes reverted to the earlier `befa20d` renderings | README embeds all three; the repo and the figures could drift apart | Decide whether to keep or regenerate, then commit |
 | 🟡 | **Classification scores are near-perfect** (Decision Tree 0.9999) | Not a bug — `Model`, `Make` and `Electric Range` are near-deterministic proxies for BEV vs PHEV even after the CAFV column is dropped | Expect a viva question; the Review-2 ROC-AUC work is the natural place to probe it |
 | 🟡 | **Severe feature collinearity** in the regression track — `ambient_temperature` correlates 0.94 with `charge_max_temp`, 0.82 with `charge_time_to_cv`, −0.78 with `Rct` | Linear coefficients cannot be read as isolated effects; some signs flip | Already documented in §C1.1; be ready to explain |
