@@ -221,3 +221,11 @@ __marimo__/
 #Datasets
 /data/Regression_Dataset
 /data/Classification_Dataset
+
+#DS_Store
+.DS_Store
+
+#claude
+.claude
+
+
