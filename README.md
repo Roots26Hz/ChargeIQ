@@ -272,7 +272,13 @@ All five trained on the same 60,000-row preprocessed training subset and evaluat
 
 ---
 
-## 🖼️ EDA Gallery — Regression Track
+<a id="figure-gallery"></a>
+
+## 🖼️ Figure Gallery
+
+Every figure both notebooks produce is written to [`assets/figures/`](assets/figures) by a `plt.savefig` call in the cell that draws it, so a **Run All** regenerates the whole gallery. The headline figures are below; all **27** are listed at the end of this section.
+
+### 🔋 Regression — EDA *(`regression.ipynb` §3)*
 
 <div align="center">
 <table>
@@ -282,14 +288,132 @@ All five trained on the same 60,000-row preprocessed training subset and evaluat
 <td width="33%" align="center"><b>Capacity fade & feature–target scatter</b></td>
 </tr>
 <tr>
-<td><img src="notebooks/a2_raw_feature_distributions.png" alt="Distributions of the five raw-curve-derived features" width="100%"></td>
-<td><img src="notebooks/a2_correlation_heatmap.png" alt="Correlation heatmap across all features and the target" width="100%"></td>
-<td><img src="notebooks/a2_scatterplots.png" alt="Capacity fade per battery and feature-target scatter plots" width="100%"></td>
+<td><img src="assets/figures/regression/eda/01_raw_feature_distributions.png" alt="Distributions of the five raw-curve-derived features" width="100%"></td>
+<td><img src="assets/figures/regression/eda/02_correlation_heatmap.png" alt="Correlation heatmap across all features and the target" width="100%"></td>
+<td><img src="assets/figures/regression/eda/03_capacity_fade_and_scatter.png" alt="Capacity fade per battery and feature-target scatter plots" width="100%"></td>
 </tr>
 </table>
 </div>
 
-The Classification track's EDA figures — feature distributions, target distribution, correlation heatmap, feature–target scatter plots, per-model confusion matrices and the model-comparison bar chart — render inline in [`notebooks/classification.ipynb`](notebooks/classification.ipynb).
+### 🔋 Regression — Models & Diagnostics *(`regression.ipynb` §11 & §14)*
+
+The three **C4 rubric deliverables**. Feature importance comes from the Decision Tree (algorithm 6); the two diagnostic plots are for the best model, **Gradient Boosting**.
+
+<div align="center">
+<table>
+<tr>
+<td width="33%" align="center"><b>Decision Tree feature importance</b></td>
+<td width="33%" align="center"><b>Predicted vs. actual SOH</b></td>
+<td width="33%" align="center"><b>Residual plot</b></td>
+</tr>
+<tr>
+<td><img src="assets/figures/regression/models/01_decision_tree_feature_importance.png" alt="Decision Tree feature importance across the ten engineered features" width="100%"></td>
+<td><img src="assets/figures/regression/models/02_predicted_vs_actual.png" alt="Predicted versus actual SOH for the best model, with the perfect-prediction diagonal" width="100%"></td>
+<td><img src="assets/figures/regression/models/03_residual_plot.png" alt="Residuals versus predicted SOH for the best model" width="100%"></td>
+</tr>
+</table>
+</div>
+
+### 🚗 Classification — EDA *(`classification.ipynb` §4)*
+
+<div align="center">
+<table>
+<tr>
+<td width="25%" align="center"><b>Numeric feature distributions</b></td>
+<td width="25%" align="center"><b>Target distribution</b></td>
+<td width="25%" align="center"><b>Correlation heatmap</b></td>
+<td width="25%" align="center"><b>Electric Range vs. target</b></td>
+</tr>
+<tr>
+<td><img src="assets/figures/classification/eda/01_numeric_feature_distributions.png" alt="Histograms of the five numerical vehicle features" width="100%"></td>
+<td><img src="assets/figures/classification/eda/03_target_distribution.png" alt="Count of BEV versus PHEV vehicles" width="100%"></td>
+<td><img src="assets/figures/classification/eda/04_correlation_heatmap.png" alt="Correlation heatmap of the numerical features" width="100%"></td>
+<td><img src="assets/figures/classification/eda/05_electric_range_vs_target.png" alt="Electric range against vehicle type, coloured by class" width="100%"></td>
+</tr>
+</table>
+</div>
+
+### 🚗 Classification — Models *(`classification.ipynb` §9–14)*
+
+<div align="center">
+<table>
+<tr>
+<td width="25%" align="center"><b>All 5 models compared</b></td>
+<td width="25%" align="center"><b>Decision Tree — confusion matrix</b></td>
+<td width="25%" align="center"><b>Decision Tree — first 3 levels</b></td>
+<td width="25%" align="center"><b>KNN — choosing <i>k</i></b></td>
+</tr>
+<tr>
+<td><img src="assets/figures/classification/models/08_model_comparison.png" alt="Bar chart comparing accuracy, precision, recall and weighted F1 across the five classifiers" width="100%"></td>
+<td><img src="assets/figures/classification/models/05_decision_tree_confusion_matrix.png" alt="Confusion matrix for the best classifier, the Decision Tree" width="100%"></td>
+<td><img src="assets/figures/classification/models/06_decision_tree_visualisation.png" alt="Decision tree structure to a depth of three levels" width="100%"></td>
+<td><img src="assets/figures/classification/models/02_knn_k_tuning.png" alt="Accuracy and weighted F1 across candidate values of k" width="100%"></td>
+</tr>
+</table>
+</div>
+
+<details>
+<summary><b>🗂️ The remaining 13 figures</b></summary>
+
+<br>
+
+**Classification — the other four confusion matrices**
+
+<div align="center">
+<table>
+<tr>
+<td width="25%" align="center"><b>Logistic Regression</b></td>
+<td width="25%" align="center"><b>KNN (k=3)</b></td>
+<td width="25%" align="center"><b>Gaussian Naive Bayes</b></td>
+<td width="25%" align="center"><b>SVM (rbf, C=1.0)</b></td>
+</tr>
+<tr>
+<td><img src="assets/figures/classification/models/01_logistic_regression_confusion_matrix.png" alt="Logistic Regression confusion matrix" width="100%"></td>
+<td><img src="assets/figures/classification/models/03_knn_confusion_matrix.png" alt="KNN confusion matrix" width="100%"></td>
+<td><img src="assets/figures/classification/models/04_naive_bayes_confusion_matrix.png" alt="Gaussian Naive Bayes confusion matrix" width="100%"></td>
+<td><img src="assets/figures/classification/models/07_svm_confusion_matrix.png" alt="Support Vector Machine confusion matrix" width="100%"></td>
+</tr>
+</table>
+</div>
+
+**Classification — Model Year vs. target**
+
+<div align="center">
+<img src="assets/figures/classification/eda/06_model_year_vs_target.png" alt="Model year against vehicle type, coloured by class" width="50%">
+</div>
+
+**Classification — top-10 category counts** *(one per categorical feature)*
+
+<div align="center">
+<table>
+<tr>
+<td width="25%" align="center"><b>County</b></td>
+<td width="25%" align="center"><b>City</b></td>
+<td width="25%" align="center"><b>State</b></td>
+<td width="25%" align="center"><b>Make</b></td>
+</tr>
+<tr>
+<td><img src="assets/figures/classification/eda/02_top_categories_county.png" alt="Top 10 counties by vehicle count" width="100%"></td>
+<td><img src="assets/figures/classification/eda/02_top_categories_city.png" alt="Top 10 cities by vehicle count" width="100%"></td>
+<td><img src="assets/figures/classification/eda/02_top_categories_state.png" alt="Top 10 states by vehicle count" width="100%"></td>
+<td><img src="assets/figures/classification/eda/02_top_categories_make.png" alt="Top 10 makes by vehicle count" width="100%"></td>
+</tr>
+<tr>
+<td width="25%" align="center"><b>Model</b></td>
+<td width="25%" align="center"><b>Electric Vehicle Type</b></td>
+<td width="25%" align="center"><b>CAFV Eligibility</b></td>
+<td width="25%" align="center"><b>Electric Utility</b></td>
+</tr>
+<tr>
+<td><img src="assets/figures/classification/eda/02_top_categories_model.png" alt="Top 10 models by vehicle count" width="100%"></td>
+<td><img src="assets/figures/classification/eda/02_top_categories_electric_vehicle_type.png" alt="Vehicle counts by electric vehicle type" width="100%"></td>
+<td><img src="assets/figures/classification/eda/02_top_categories_clean_alternative_fuel_vehicle_cafv_eligibility.png" alt="Vehicle counts by CAFV eligibility category" width="100%"></td>
+<td><img src="assets/figures/classification/eda/02_top_categories_electric_utility.png" alt="Top 10 electric utilities by vehicle count" width="100%"></td>
+</tr>
+</table>
+</div>
+
+</details>
 
 ---
 
@@ -313,8 +437,17 @@ ChargeIQ/
 ├── notebooks/
 │   ├── regression.ipynb         ✅ SOH — sections 0 → 15, all 10 algorithms
 │   ├── classification.ipynb     ✅ Electric Vehicle Type — Part A, 5 algorithms
-│   ├── clustering.ipynb         ⬜ not created yet — charging archetypes (Review 2)
-│   └── a2_*.png                    saved regression EDA figures
+│   └── clustering.ipynb         ⬜ not created yet — charging archetypes (Review 2)
+│
+├── assets/figures/              ← every figure, written by the notebooks
+│   ├── regression/
+│   │   ├── eda/                    3 — distributions, heatmap, fade & scatter
+│   │   └── models/                 3 — feature importance, pred-vs-actual, residual
+│   └── classification/
+│       ├── eda/                   13 — distributions, target, heatmap, scatters,
+│       │                               8 top-10 category charts
+│       └── models/                 8 — 5 confusion matrices, k-sweep,
+│                                       tree diagram, model comparison
 │
 ├── models/                      ← serialised models (.pkl via joblib)
 └── app/                         ← GUI / deployment (bonus track)
@@ -367,7 +500,7 @@ Where each Review-1 rubric criterion lives. Full mark-by-mark tracking is in **[
 | § | Criterion | Where | Status |
 |:-:|:--|:--|:-:|
 | A1 | Dataset loading & audit | `regression.ipynb` §1 · `classification.ipynb` §3 | ✅ |
-| A2 | EDA visualisations | `regression.ipynb` §3 · `classification.ipynb` §4.1–4.4 | ✅ |
+| A2 | EDA visualisations | `regression.ipynb` §3 · `classification.ipynb` §4.1–4.4 — see [Figure Gallery](#figure-gallery) | ✅ |
 | A3 | Insight commentary | Markdown observation after every major figure in both notebooks | ✅ |
 | B1 | Data cleaning | `regression.ipynb` §4 · `classification.ipynb` §5 | ✅ |
 | B2 | Encoding, scaling & splitting | `regression.ipynb` §6–7 · `classification.ipynb` §7–8 | ✅ |
@@ -375,7 +508,7 @@ Where each Review-1 rubric criterion lives. Full mark-by-mark tracking is in **[
 | C1 | All 10 regression algorithms | `regression.ipynb` §9 + §11 | ✅ 10/10 |
 | C2 | Comparative evaluation table | `regression.ipynb` §12 — ranked by R² | ✅ |
 | C3 | Hyperparameter tuning ≥ 2 models | GridSearchCV on 8 models (+ polynomial degree via GroupKFold CV); GB and DT deltas reported | ✅ |
-| C4 | Residual / pred-vs-actual / feature-importance plots | `regression.ipynb` §14 + DT importance in §11 | ✅ |
+| C4 | Residual / pred-vs-actual / feature-importance plots | `regression.ipynb` §14 + DT importance in §11 — all three in [`assets/figures/regression/models/`](assets/figures/regression/models) | ✅ |
 | D1 | Classification Part A — 5 algorithms | `classification.ipynb` §9–13 | ✅ 5/5 |
 | D2 | Part A evaluation + comparison table | `classification.ipynb` §14 | ✅ |
 
