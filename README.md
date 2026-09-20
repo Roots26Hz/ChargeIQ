@@ -119,7 +119,7 @@ Raw `Capacity` (Ah) is not comparable across cells with different nominal rating
 ### 🧠 The methodological core — *split by battery, not by row*
 
 > [!NOTE]
-> This is the most important design decision in the track, and the one to defend in the viva.
+> This is the most important design decision in the track.
 
 This is **panel data** — repeated cycles from the same ~30 batteries, not independent rows. Under a naive random row-level split, cycles from the *same* battery land in both train and test, and the model can partly fit battery-specific quirks through the `battery_id` one-hot column instead of learning the general physics. The scores look better; the question being answered is easier and less useful.
 
