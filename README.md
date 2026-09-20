@@ -186,7 +186,7 @@ Gradient Boosting leads on mean CV R² by a clear margin (0.8238 vs 0.7006), and
 
 ### 🎛️ Hyperparameter tuning
 
-`GridSearchCV` (5-fold) applied to Ridge, Lasso, ElasticNet, Polynomial degree, Decision Tree, Random Forest, Gradient Boosting, SVR and KNN. Before/after on the held-out test set:
+`GridSearchCV` (5-fold) applied to **8 models** — Ridge, Lasso, ElasticNet, Decision Tree, Random Forest, Gradient Boosting, SVR and KNN. Polynomial **degree** is selected separately, via `GroupKFold` + `cross_val_score` on the training data only, so the held-out set plays no part in choosing it. Before/after on the held-out test set:
 
 | Model | Original R² | Tuned R² | Δ |
 |:--|--:|--:|--:|
@@ -377,7 +377,7 @@ Where each Review-1 rubric criterion lives. Full mark-by-mark tracking is in **[
 | B3 | Feature engineering | `cycle_index_squared` · `Vehicle Age` | ✅ |
 | C1 | All 10 regression algorithms | `regression.ipynb` §9 + §11 | ✅ 10/10 |
 | C2 | Comparative evaluation table | `regression.ipynb` §12 — ranked by R² | ✅ |
-| C3 | Hyperparameter tuning ≥ 2 models | GridSearchCV across 9 models; GB and DT deltas reported | ✅ |
+| C3 | Hyperparameter tuning ≥ 2 models | GridSearchCV on 8 models (+ polynomial degree via GroupKFold CV); GB and DT deltas reported | ✅ |
 | C4 | Residual / pred-vs-actual / feature-importance plots | `regression.ipynb` §14 + DT importance in §11 | ✅ |
 | D1 | Classification Part A — 5 algorithms | `classification.ipynb` §9–13 | ✅ 5/5 |
 | D2 | Part A evaluation + comparison table | `classification.ipynb` §14 | ✅ |
