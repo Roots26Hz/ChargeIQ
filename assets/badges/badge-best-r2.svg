@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated. Values are baked in: edit here if the metric changes. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="156" height="28" viewBox="0 0 156 28" role="img" aria-label="Best R2: 0.815">
+  <title>Best R2: 0.815</title>
+  <defs>
+    <linearGradient id="gS5" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#ffffff" stop-opacity="0.26"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+    <clipPath id="cS5"><rect x="0" y="0" width="156" height="28" rx="6"/></clipPath>
+  </defs>
+  <style>
+    .tS5 { font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+    .sS5 { animation: swS5 4.5s ease-in-out infinite; animation-delay: 1.2s; }
+    @keyframes swS5 {
+      0%   { transform: translateX(-236px); }
+      60%  { transform: translateX(236px); }
+      100% { transform: translateX(236px); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .sS5 { animation: none; opacity: 0; }
+    }
+  </style>
+  <g clip-path="url(#cS5)">
+    <rect width="156" height="28" rx="6" fill="#1b2430"/>
+    <rect x="97" y="0" width="59" height="28" fill="#2E7D32"/>
+    <path d="M15 14 L19.5 18.5 L28 9.5" stroke="#ffffff" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <text class="tS5" x="32" y="18.3" fill="#e8eef5" font-size="12.5" font-weight="600">Best R2</text>
+    <text class="tS5" x="107" y="18.3" fill="#ffffff" font-size="12.5" font-weight="700">0.815</text>
+    <rect class="sS5" x="0" y="0" width="156" height="28" fill="url(#gS5)"/>
+  </g>
+</svg>
