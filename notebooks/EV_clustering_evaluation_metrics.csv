@@ -1,0 +1,3 @@
+Algorithm,Rows Clustered,Silhouette Score (sample n=5000),Davies-Bouldin Index (all rows),Calinski-Harabasz Index (all rows),Number of Clusters,Silhouette Rank,Davies-Bouldin Rank,Calinski-Harabasz Rank
+K-Means,100000,0.40939595177146454,0.9195487267518595,84854.2409303043,3,1,1,1
+Agglomerative Clustering (Ward + kNN connectivity),100000,0.38983791831136533,0.9766731063358081,73872.008132383,3,2,2,2
