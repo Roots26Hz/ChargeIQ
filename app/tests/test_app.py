@@ -236,7 +236,9 @@ def test_decision_path_shows_whole_numbers_without_a_decimal_point(app):
 
 @pytest.mark.parametrize("key, title", [("home", "Why these three questions?"),
                                         ("vehicle_model", "What a range of 0 really means"),
-                                        ("battery_model", "What the model leans on")])
+                                        ("battery_model", "What the model leans on"),
+                                        ("charging_data", "Where this data comes from"),
+                                        ("charging_model", "Three kinds of session")])
 def test_team_notes_render_with_their_titles(app, key, title):
     notes = [m.value for m in _render(app, key).markdown if 'class="ciq-note"' in m.value]
     assert len(notes) == 1
