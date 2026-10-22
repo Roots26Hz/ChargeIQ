@@ -104,3 +104,5 @@ variance = meta["notebook_results"]["pca"]["variance_explained_pct"]
 st.caption(f"{len(points):,} sample sessions on the notebook's two-component PCA plane (cell "
            f"{meta['notebook_results']['pca']['cell']}, {variance:.2f}% of the variance), coloured by K-Means group, "
            "with this session placed by the same projection.")
+
+ui.next_chapter("conclusion")

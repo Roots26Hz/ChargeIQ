@@ -89,14 +89,6 @@ def artifact_error(error: Exception) -> None:
     st.caption("If you maintain this app, see `app/DEPLOYMENT.md` → Troubleshooting.")
 
 
-def placeholder(milestone: str, summary: str) -> None:
-    st.markdown(
-        f'<div class="ciq-placeholder"><p class="ciq-kicker">Coming in {html.escape(milestone)}</p>'
-        f"<p>{html.escape(summary)}</p></div>",
-        unsafe_allow_html=True,
-    )
-
-
 def chapter_link(key: str, label: str | None = None, icon: str = ":material/arrow_forward:") -> bool:
     """Link to a chapter if it is currently shown in the sidebar. Returns whether a link was drawn."""
     if not navigation.is_visible(key):

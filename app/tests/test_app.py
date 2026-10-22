@@ -13,7 +13,7 @@ import pytest
 from streamlit.testing.v1 import AppTest
 
 from conftest import APP_DIR, REPO_ROOT
-from content import home, vehicle
+from content import battery, home, vehicle
 from core import classification as clf
 from core import clustering as clu
 from core import regression as reg
@@ -93,16 +93,6 @@ def _page_text(app) -> str:
     parts = [m.value for m in app.markdown] + [c.value for c in app.caption]
     parts += [f"{m.label} {m.value}" for m in app.metric] + [c.value for c in app.code]
     return "\n".join(parts)
-
-
-@pytest.mark.parametrize("chapter", [ch for ch in navigation.CHAPTERS if ch.ready], ids=lambda ch: ch.key)
-def test_finished_chapters_have_no_placeholder(app, chapter):
-    assert "ciq-placeholder" not in _page_text(_render(app, chapter.key))
-
-
-@pytest.mark.parametrize("chapter", [ch for ch in navigation.CHAPTERS if not ch.ready], ids=lambda ch: ch.key)
-def test_unfinished_chapters_say_so(full_app, chapter):
-    assert "ciq-placeholder" in _page_text(_render(full_app, chapter.key))
 
 
 def test_home_quotes_each_tracks_objective(app):
@@ -411,3 +401,35 @@ def test_the_map_marks_the_session_exactly_where_pca_point_puts_it(app):
             assert all(any(abs(n - v) < 1e-9 for n in numbers) for v in clu.pca_point(session))
             return
     pytest.fail("no chart marks 'This session'")
+
+
+# ---------------------------------------------------------------- conclusion
+
+
+def test_conclusion_numbers_are_the_metadatas(app, meta, reg_meta, clu_meta):
+    page = _render(app, "conclusion")
+    table = next(d.value for d in page.dataframe if "Track" in d.value.columns)
+    results = " ".join(table["Result"])
+    assert f"Weighted F1 {meta['final_model']['test_metrics']['weighted_f1']:.4f}" in results
+    assert f"{meta['dataset']['test_rows']:,} test vehicles" in results
+    tested = reg_meta["notebook_results"]["test_metrics"]["values"]
+    assert f"R² {tested['r2']:.4f}, RMSE {tested['rmse']:.2f}" in results
+    assert f"Silhouette {clu_meta['kmeans']['metrics']['silhouette']:.4f}" in results
+    assert "first of the two algorithms on all three metrics" in results  # K-Means wins all three (cell 33)
+
+
+def test_conclusion_quotes_each_tracks_own_conclusion_and_links_back(app):
+    page = _render(app, "conclusion")
+    text = _page_text(page)
+    for quote in (vehicle.SELECTION, vehicle.LEAKAGE_CAUTION, battery.SAME_TEST_SET, battery.SCOPE):
+        assert quote.text in text
+    links = [e.page for e in _walk_all(page) if type(e).__name__ == "PageLink"]
+    assert {"vehicle-predict", "battery-predict", "charging-predict"} <= set(links)
+
+
+def _walk_all(page):
+    def walk(node):
+        for child in getattr(node, "children", {}).values():
+            yield child
+            yield from walk(child)
+    return list(walk(page.main))

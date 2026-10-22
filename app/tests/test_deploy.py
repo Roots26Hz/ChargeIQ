@@ -65,8 +65,8 @@ def test_visible_chapters_are_complete_and_link_only_to_visible_chapters(chapter
     elements = list(_walk(at.main))
     markdown = "\n".join(e.value for e in elements if type(e).__name__ == "Markdown")
     assert "ciq-todo" not in markdown, "a TODO(team) box is still on a visible chapter"
-    assert "ciq-placeholder" not in markdown, "a 'coming soon' placeholder is on a visible chapter"
-    visible_urls = {ch.url_path for ch in navigation.visible()}
+    # The default chapter is served at the app's root, so links to it carry an empty path.
+    visible_urls = {"" if ch.key == navigation.DEFAULT_KEY else ch.url_path for ch in navigation.visible()}
     for link in (e for e in elements if type(e).__name__ == "PageLink"):
         assert link.page in visible_urls, f"{link.label!r} points to hidden chapter {link.page!r}"
 

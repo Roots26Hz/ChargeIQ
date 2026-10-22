@@ -3,8 +3,6 @@
 import streamlit as st
 
 from content import home as text
-from core import classification as clf
-from core.artifacts import load_metadata
 from ui import components as ui
 from ui import navigation
 
@@ -45,13 +43,13 @@ for name, method, first_chapter, objective, icon in TRACKS:
             st.caption("This track's chapters are still being built.")
 
 with st.expander("How this app was built", icon=":material/info:"):
-    meta = load_metadata(clf.TRACK)
     st.markdown(
-        "**The models.** "
-        + meta["provenance"]["method"]
-        + "\n\n**The words.** Indented quotations are verbatim excerpts of the team's notebooks, each "
-        "cited by notebook and cell; an automated test checks every one against its cell. Boxes marked "
-        "**TODO(team)** hold text the team has still to write.\n\n"
+        "**The models.** None of the three notebooks saved its trained model. Each model in this app was "
+        "rebuilt by replaying its notebook's own preprocessing and training cells verbatim, and was saved only "
+        "after the replay matched the results stored in the notebook; the export scripts in `models/` list "
+        "every check.\n\n"
+        "**The words.** Indented quotations are verbatim excerpts of the team's notebooks, each "
+        "cited by notebook and cell; an automated test checks every one against its cell.\n\n"
         "**The code.** The app's code was scaffolded with AI assistance (Claude Code). The analysis and "
         "its interpretation are the team's own, taken from the notebooks."
     )

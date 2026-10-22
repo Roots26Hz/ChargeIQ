@@ -35,18 +35,6 @@
   letter-spacing: 0.04em;
 }
 
-.ciq-placeholder {
-  margin: 0.5rem 0 1rem;
-  padding: 1.1rem 1.3rem;
-  border: 1px solid rgba(128, 128, 128, 0.35);
-  border-radius: 0.75rem;
-  background: rgba(128, 128, 128, 0.06);
-}
-
-.ciq-placeholder p:last-child {
-  margin-bottom: 0;
-}
-
 .ciq-result {
   margin: 0.4rem 0 0.8rem;
   padding: 1rem 1.3rem;

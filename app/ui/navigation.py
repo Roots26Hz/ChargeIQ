@@ -49,7 +49,7 @@ CHAPTERS: tuple[Chapter, ...] = (
     Chapter("charging_data", DRIVER, "Meet the data", ":material/table_chart:", ready=True),
     Chapter("charging_model", DRIVER, "How the model groups", ":material/hub:", ready=True),
     Chapter("charging_predict", DRIVER, "Place a charging session", ":material/ev_station:", ready=True),
-    Chapter("conclusion", "Wrap-up", "Conclusion", ":material/flag:", ready=False),
+    Chapter("conclusion", "Wrap-up", "Conclusion", ":material/flag:", ready=True),
 )
 
 
