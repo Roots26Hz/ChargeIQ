@@ -13,7 +13,8 @@ from functools import lru_cache
 import pytest
 
 from conftest import REPO_ROOT
-from content import Fact, Quote, home, vehicle
+from content import Example, Fact, Quote, home, vehicle
+from core import classification as clf
 
 MODULES = (home, vehicle)
 ALL_QUOTES = [q for m in MODULES for q in m.QUOTES]
@@ -63,3 +64,40 @@ def test_every_module_lists_its_quotes():
 
 def test_model_training_rows_fact_matches_the_exported_model(meta):
     assert int(vehicle.MODEL_TRAINING_ROWS.value.replace(",", "")) == meta["dataset"]["train_rows"]
+
+
+# ---------------------------------------------------------------- examples
+
+
+def _example_inputs(example: Example) -> dict:
+    return {
+        "Make": example.make, "Model": example.model, "Model Year": example.model_year,
+        "Electric Range": example.electric_range, "County": example.county, "City": example.city,
+        **clf.location_defaults(example.county, example.city),
+    }
+
+
+@pytest.mark.parametrize("example", vehicle.EXAMPLES, ids=lambda e: e.key)
+def test_example_occurs_in_the_data_with_its_stated_label(replay, example: Example):
+    X, y = {"training": (replay["X_train"], replay["y_train"]),
+            "test": (replay["X_test"], replay["y_test"])}[example.split]
+    match = ((X["Make"] == example.make) & (X["Model"] == example.model)
+             & (X["Model Year"] == example.model_year) & (X["Electric Range"] == example.electric_range))
+    assert int(match.sum()) == example.rows
+    assert set(y[match].map(clf.short_label)) == {example.label_in_data}
+
+
+@pytest.mark.parametrize("example", vehicle.EXAMPLES, ids=lambda e: e.key)
+def test_example_prediction_is_what_the_page_says(example: Example):
+    assert clf.predict(_example_inputs(example)).short_label == example.predicted
+
+
+def test_the_misclassified_example_is_one_of_the_models_test_errors(replay, model):
+    ranger = next(e for e in vehicle.EXAMPLES if e.predicted != e.label_in_data)
+    X, y = replay["X_test"], replay["y_test"]
+    wrong = X[model.predict(X) != y.values]
+    assert ((wrong["Make"] == ranger.make) & (wrong["Model"] == ranger.model)).sum() == ranger.rows
+
+
+def test_example_keys_are_unique():
+    assert len({e.key for e in vehicle.EXAMPLES}) == len(vehicle.EXAMPLES)

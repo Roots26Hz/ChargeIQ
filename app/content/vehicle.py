@@ -1,6 +1,6 @@
 """Vehicle track (classification.ipynb) — the team's own words and reported numbers."""
 
-from . import Fact, Quote
+from . import Example, Fact, Quote
 
 NB = "classification.ipynb"
 
@@ -134,3 +134,20 @@ QUOTES = (
     RANGE_AND_MODEL_CAUTION, SELECTION, LEAKAGE_CAUTION,
 )
 FACTS = (TRAINING_POOL_ROWS, MODEL_TRAINING_ROWS, TARGET_PROXY_DROP)
+
+# ---- Chapter 4: ready-made inputs (verified against the replayed split by app/tests/test_content.py)
+
+EXAMPLES = (
+    Example("model_y", "Tesla Model Y 2023", "TESLA", "MODEL Y", 2023, 0,
+            "training", 3777, "BEV", "BEV"),
+    Example("model_3", "Tesla Model 3 2018", "TESLA", "MODEL 3", 2018, 215,
+            "training", 1146, "BEV", "BEV"),
+    Example("volt", "Chevrolet Volt 2017", "CHEVROLET", "VOLT", 2017, 53,
+            "training", 240, "PHEV", "PHEV"),
+    Example("i3_97", "BMW i3 2017 · range 97", "BMW", "I3", 2017, 97,
+            "training", 56, "PHEV", "PHEV"),
+    Example("i3_81", "BMW i3 2017 · range 81", "BMW", "I3", 2017, 81,
+            "training", 21, "BEV", "BEV"),
+    Example("ranger", "Ford Ranger 2000", "FORD", "RANGER", 2000, 58,
+            "test", 2, "BEV", "PHEV"),
+)

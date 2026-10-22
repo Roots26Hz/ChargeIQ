@@ -46,3 +46,22 @@
 .ciq-placeholder p:last-child {
   margin-bottom: 0;
 }
+
+.ciq-result {
+  margin: 0.4rem 0 0.8rem;
+  padding: 1rem 1.3rem;
+  border: 1px solid rgba(128, 128, 128, 0.35);
+  border-left: 0.35rem solid rgba(67, 160, 71, 0.9);  /* between the light and dark theme greens */
+  border-radius: 0.75rem;
+  background: rgba(128, 128, 128, 0.06);
+}
+
+.ciq-result p {
+  margin: 0;
+}
+
+.ciq-result .ciq-result-label {
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 1.15;
+}

@@ -9,7 +9,7 @@ import pytest
 from streamlit.testing.v1 import AppTest
 
 from conftest import APP_DIR, REPO_ROOT
-from content import home
+from content import home, vehicle
 from core import classification as clf
 from ui import navigation
 
@@ -133,3 +133,87 @@ def test_every_track_has_a_data_model_and_predict_chapter():
     keys = {ch.key for ch in navigation.CHAPTERS}
     for track in ("vehicle", "battery", "charging"):
         assert {f"{track}_data", f"{track}_model", f"{track}_predict"} <= keys
+
+
+# ---------------------------------------------------------------- the prediction chapter
+
+
+def _predict_page(app):
+    return _render(app, "vehicle_predict")
+
+
+def _shown_label(app) -> str:
+    card = next(m.value for m in app.markdown if "ciq-result-label" in m.value)
+    return re.search(r'ciq-result-label">([^<]+)<', card).group(1)
+
+
+def _form_inputs(app) -> dict:
+    return {field: app.session_state[f"vp_{field}"] for field in clf.input_fields()}
+
+
+def test_prediction_page_starts_from_the_first_example(app):
+    page = _predict_page(app)
+    first = vehicle.EXAMPLES[0]
+    assert page.session_state["vp_Make"] == first.make and page.session_state["vp_Model"] == first.model
+    assert _shown_label(page) == first.predicted
+
+
+@pytest.mark.parametrize("example_key", ["volt", "i3_97", "i3_81", "ranger"])
+def test_choosing_an_example_fills_the_form_and_shows_the_models_answer(app, example_key):
+    example = next(e for e in vehicle.EXAMPLES if e.key == example_key)
+    page = _predict_page(app)
+    page.button_group(key="vp_example").set_value(example_key).run()
+    assert not page.exception
+    inputs = _form_inputs(page)
+    assert (inputs["Make"], inputs["Model"], inputs["Model Year"], inputs["Electric Range"]) == (
+        example.make, example.model, example.model_year, example.electric_range)
+    assert _shown_label(page) == example.predicted == clf.predict(inputs).short_label
+
+
+def test_the_shown_result_is_exactly_the_inference_modules(app):
+    page = _predict_page(app)
+    page.button_group(key="vp_example").set_value("i3_97").run()
+    expected = clf.predict(_form_inputs(page))
+    text = _page_text(page)
+    for step in expected.path:
+        assert step.condition in text
+    assert f"{expected.leaf_samples:,}" in text
+
+
+def test_the_misclassified_example_is_flagged(app):
+    page = _predict_page(app)
+    page.button_group(key="vp_example").set_value("ranger").run()
+    assert any("of the 5 test vehicles it misclassifies" in w.value for w in page.warning)
+
+
+def test_changing_make_resets_model_and_clears_the_example(app):
+    page = _predict_page(app)
+    page.selectbox(key="vp_Make").set_value("BMW").run()
+    assert not page.exception
+    assert page.session_state["vp_Model"] in clf.models_for_make("BMW")
+    assert page.session_state["vp_example"] is None
+    assert not page.info and not page.warning  # no claim about the data once the inputs are custom
+
+
+def test_changing_county_refills_city_and_location_codes(app):
+    page = _predict_page(app)
+    page.selectbox(key="vp_County").set_value("Spokane").run()
+    assert not page.exception
+    city = page.session_state["vp_City"]
+    assert city in clf.cities_for_county("Spokane")
+    for field, value in clf.location_defaults("Spokane", city).items():
+        assert page.session_state[f"vp_{field}"] == value
+
+
+def test_electric_range_alone_can_flip_the_prediction(app):
+    page = _predict_page(app)
+    page.button_group(key="vp_example").set_value("i3_97").run()
+    assert _shown_label(page) == "PHEV"
+    page.number_input(key="vp_Electric Range").set_value(81).run()
+    assert _shown_label(page) == "BEV"
+
+
+def test_decision_path_shows_whole_numbers_without_a_decimal_point(app):
+    page = _predict_page(app)
+    page.button_group(key="vp_example").set_value("ranger").run()
+    assert "this vehicle: `58` ·" in _page_text(page)
