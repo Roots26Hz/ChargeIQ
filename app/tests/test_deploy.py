@@ -123,7 +123,7 @@ def test_the_app_never_reads_a_dataset():
 
 def test_the_deployed_model_files_are_committed_and_unmodified():
     tracked = set(_git("ls-files", "models").split())
-    for track in ("classification", "regression"):
+    for track in ("classification", "regression", "clustering"):
         for path in (artifacts.model_path(track), artifacts.metadata_path(track)):
             relative = str(path.relative_to(REPO_ROOT))
             assert relative in tracked, f"{relative} is not committed"

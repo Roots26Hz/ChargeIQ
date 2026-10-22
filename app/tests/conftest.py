@@ -13,6 +13,7 @@ REPO_ROOT = APP_DIR.parent
 sys.path.insert(0, str(APP_DIR))  # so `import core` works exactly as it does under Streamlit
 
 from core import classification as clf  # noqa: E402
+from core import clustering as clu  # noqa: E402
 from core import regression as reg  # noqa: E402
 from core.artifacts import load_metadata, load_model  # noqa: E402
 
@@ -94,3 +95,27 @@ def reg_replay(reg_export_module):
     if not reg_export_module.DATA_PATH.is_file():
         pytest.skip(f"regression data not found in {reg_export_module.DATASET_DIR} (local only)")
     return reg_export_module.replay()
+
+
+# ---------------------------------------------------------------- clustering
+
+
+@pytest.fixture(scope="session")
+def clu_meta():
+    return load_metadata(clu.TRACK)
+
+
+@pytest.fixture(scope="session")
+def clu_model():
+    return load_model(clu.TRACK)
+
+
+@pytest.fixture(scope="session")
+def clu_export_module():
+    return _import_export_script("export_clustering")
+
+
+@pytest.fixture(scope="session")
+def clu_replay(clu_export_module):
+    """One replay of the clustering notebook. Its sample is committed, so this always runs."""
+    return clu_export_module.replay()
