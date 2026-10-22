@@ -6,29 +6,33 @@
 
 <br>
 
-![Overall](https://img.shields.io/badge/Deliverables%20in%20repo-21%2F50%20marks-FFB300?style=for-the-badge)
-![Review 2](https://img.shields.io/badge/Review%202-2%2F25-FFB300?style=for-the-badge)
-![Bonus GUI](https://img.shields.io/badge/🎁%20Bonus%20GUI-Not%20started-9E9E9E?style=flat-square)
+![Overall](https://img.shields.io/badge/Deliverables%20in%20repo-35%2F50%20marks-FFB300?style=for-the-badge)
+![Review 2](https://img.shields.io/badge/Review%202-16%2F25-FFB300?style=for-the-badge)
+[![Bonus](https://img.shields.io/badge/🎁%20Bonus-GUI%20%2B%20deployment%20live%20·%20%2B2-2E7D32?style=flat-square)](https://chargeiq.streamlit.app)
 
 <img src="assets/badges/badge-review1-19-19.svg" alt="Review 1 implementation: 19 of 19" height="28">
 <img src="assets/badges/badge-regression-10-10.svg" alt="Regression: 10 of 10 algorithms" height="28">
 <img src="assets/badges/badge-classification-a-5-5.svg" alt="Classification Part A: 5 of 5" height="28">
+<img src="https://img.shields.io/badge/Classification%20Part%20B-5%2F5-43A047?style=flat-square" alt="Classification Part B: 5 of 5" height="28">
+<img src="https://img.shields.io/badge/Clustering-2%2F2-43A047?style=flat-square" alt="Clustering: 2 of 2" height="28">
 
 <br>
 
 <img src="assets/badges/bar-regression.svg" alt="Regression algorithms: 10 of 10 complete" width="640"><br>
 <img src="assets/badges/bar-classification-a.svg" alt="Classification Part A algorithms: 5 of 5 complete" width="640"><br>
-<img src="assets/badges/bar-classification-b.svg" alt="Classification Part B algorithms: 0 of 5, due Review 2" width="640"><br>
-<img src="assets/badges/bar-clustering.svg" alt="Clustering algorithms: 0 of 2, due Review 2" width="640"><br>
-<img src="assets/badges/bar-marks.svg" alt="Deliverables in repository: 21 of 50 marks" width="640">
+<img src="assets/badges/bar-classification-b.svg" alt="Classification Part B algorithms: 5 of 5 complete" width="640"><br>
+<img src="assets/badges/bar-clustering.svg" alt="Clustering algorithms: 2 of 2 complete" width="640"><br>
+<img src="assets/badges/bar-marks.svg" alt="Deliverables in repository: 35 of 50 marks" width="640">
 
-*Last updated: 21 September 2026 · 57 commits · at [`27f4619`](https://github.com/Roots26Hz/ChargeIQ/commit/27f4619)*
+**🖥️ Live app: [chargeiq.streamlit.app](https://chargeiq.streamlit.app)**
+
+*Last updated: 22 October 2026 · 93 commits · at [`35608e6`](https://github.com/Roots26Hz/ChargeIQ/commit/35608e6)*
 
 </div>
 
 > **Legend** — ✅ done · 🚧 in progress · ⬜ not started · ⚠️ at risk
 >
-> **Badge meaning** — marks whose deliverable is physically in the repository. Review 1: **19/19** implementation marks done; the remaining 6 (presentation + viva) are earned on the day. Review 2: **2/25** — README (C2) and `requirements.txt` (C3).
+> **Badge meaning** — marks whose deliverable is physically in the repository. Review 1: **19/19** implementation marks done; the remaining 6 (presentation + viva) are earned on the day. Review 2: **16/25** — Part B (A1–A3), clustering (B1–B3), README (C2) and history + `requirements.txt` (C3). Code quality (C1, 1 mark) waits on one fix — the clustering notebook's dataset path — and presentation + viva (D, 8 marks) are earned on the day. The **+2 bonus** (GUI and public deployment) is delivered.
 
 ---
 
@@ -92,6 +96,39 @@ Both reviews are in-person presentations. **Every team member must be able to ex
 | 12 | Algorithm 5 — Support Vector Machine | `33199d7` | ✅ |
 | 13 | Comparison of all 5 Part-A algorithms | `4fd67a7` | ✅ |
 | 14 | Conclusion | `0356b4f` | ✅ |
+| 15 | Part B · Algorithm 6 — Random Forest | `a9624c2` | ✅ |
+| 16 | Part B · Algorithm 7 — AdaBoost | `ccc98b1` | ✅ |
+| 17 | Part B · Algorithm 8 — Gradient Boosting | `f6385b2` | ✅ |
+| 18 | Part B · Algorithm 9 — Bagging | `ccfa62e` | ✅ |
+| 19 | Part B · Algorithm 10 — MLP | `4f369e6` | ✅ |
+| 20 | Part B · confusion matrices and ROC curves | `e669912` | ✅ |
+| 21 | Part B · evaluation — 10-model comparison, 5-fold CV | `2a74064` | ✅ |
+| 22 | Final selection and conclusion | `bc5abdf` | ✅ |
+
+### 🔌 Clustering Track — `notebooks/clustering.ipynb`
+
+| # | Milestone | Commit | Status |
+|:-:|:--|:--|:-:|
+| 00 | Notebook created | `02accf7` … `68f6075` | ✅ |
+| 01 | Preprocessing — sample, imputation, Yeo–Johnson, scaling, elbow curve | `ccc4c83` | ✅ |
+| 02 | Linkage comparison and dendrograms | `e56591a` | ✅ |
+| 03 | Evaluation — Silhouette, Davies–Bouldin, Calinski–Harabasz | `14ec696` | ✅ |
+| 04 | Visualisation — PCA for both algorithms, t-SNE, cluster profiles | `2e9d40f` … `171ad12` | ✅ |
+
+### 🖥️ Live App — `app/` and `models/` *(bonus)*
+
+| # | Milestone | Commit | Status |
+|:-:|:--|:--|:-:|
+| 01 | Vehicle model rebuilt from the notebook and verified; inference module + tests | `2bee195` | ✅ |
+| 02 | Streamlit skeleton — navigation, design system, theme | `a1ef325` | ✅ |
+| 03 | Vehicle story chapters | `f87bdcb` | ✅ |
+| 04 | Vehicle prediction chapter | `633ec7c` | ✅ |
+| 05 | Team notes · deployment readiness · **first public deploy** | `49e92c9`, `906b142` | ✅ |
+| 06 | Battery model rebuilt and verified | `584ff16` | ✅ |
+| 07 | Battery chapters | `a4e2cad` | ✅ |
+| 08 | Clustering model rebuilt and verified; 8 clustering figures exported | `35ef591` | ✅ |
+| 09 | Driver chapters | `96f281a`, `cde89d9` | ✅ |
+| 10 | Conclusion chapter, polish, redeploy — all 11 chapters live | `35608e6` | ✅ |
 
 ### 📄 Documentation & Repository Hygiene
 
@@ -104,8 +141,9 @@ Both reviews are in-person presentations. **Every team member must be able to ex
 | 05 | Figure gallery — 27 figures saved to `assets/figures/`, README gallery expanded, classification dataset path fixed | `e33bd0d` | ✅ |
 | 06 | Team table — GitHub IDs column, all three members filled in | `bba01ae` | ✅ |
 | 07 | Folder READMEs — `notebooks/` and `data/` documented; stale dataset copy removed | `bba01ae` | ✅ |
+| 08 | README and PROGRESS.md updated for Review 2 — Part B, clustering, the live app, AI disclosure; folder READMEs refreshed | *this update* | ✅ |
 
-> ✅ **57 granular commits, no bulk upload.** The guidelines state that a single commit containing all work scores **zero** on the GitHub criterion — the current history comfortably satisfies it.
+> ✅ **93 granular commits, no bulk upload.** The guidelines state that a single commit containing all work scores **zero** on the GitHub criterion — the current history comfortably satisfies it.
 
 ---
 
@@ -175,7 +213,7 @@ Both reviews are in-person presentations. **Every team member must be able to ex
 |:-:|:--|:--|--:|--:|--:|--:|:-:|
 | 1 | Logistic Regression | `max_iter=1000` *(baseline)* | 0.9933 | 0.9933 | 0.9933 | 0.9933 | ✅ |
 | 2 | K-Nearest Neighbors | `k=3`, Euclidean *(validation-tuned)* | 0.9725 | 0.9722 | 0.9725 | 0.9723 | ✅ |
-| 3 | Gaussian Naive Bayes | — | 0.9867 | 0.9874 | 0.9867 | 0.9868 | ✅ |
+| 3 | Gaussian Naive Bayes | — *(15,000-row stratified subset)* | 0.9834 | 0.9841 | 0.9834 | 0.9835 | ✅ |
 | 4 | **Decision Tree Classifier** | `max_depth=7` *(validation-tuned)* | **0.9999** | **0.9999** | **0.9999** | **0.9999** | ✅ |
 | 5 | Support Vector Machine (SVC) | `kernel=rbf, C=1.0` *(grid-tuned)* | 0.9975 | 0.9975 | 0.9975 | 0.9975 | ✅ |
 
@@ -190,7 +228,67 @@ Both reviews are in-person presentations. **Every team member must be able to ex
 | Preliminary comparison table | ✅ §14 + bar chart |
 | Decision tree visualised | ✅ first 3 levels |
 
-> ⚠️ **ROC-AUC is not yet computed.** It is a **Review-2** requirement (§3.2), not Review 1, so this is on schedule rather than overdue.
+> ✅ **ROC-AUC** — computed for all ten classifiers in Part B (cell 81); see below.
+
+---
+
+## 🧩 Classification Track — Part B — 5 / 5 Algorithms
+
+Same 60,000-row training subset, same 58,839-row test set, same weighted metrics, plus **ROC-AUC**.
+
+| # | Algorithm | Configuration | Accuracy | Weighted F1 | ROC-AUC | Status |
+|:-:|:--|:--|--:|--:|--:|:-:|
+| 6 | Random Forest | `n_estimators=100, max_depth=None` *(grid-tuned on a 20,000-row subset)* | 0.9988 | 0.9988 | 1.0000 | ✅ |
+| 7 | AdaBoost | stumps; `n_estimators=50, learning_rate=0.5` *(grid-tuned)* | 0.9994 | 0.9994 | 1.0000 | ✅ |
+| 8 | Gradient Boosting | `n_estimators=100, learning_rate=0.1, max_depth=3` on 100 `TruncatedSVD` components | 0.9928 | 0.9928 | 0.9995 | ✅ |
+| 9 | Bagging | 50 trees (`max_depth=15`), `max_samples=0.8` | **0.9999** | **0.9999** | 0.9999 | ✅ |
+| 10 | MLP | `(100, 50)`, ReLU, Adam, early stopping — 20 iterations | 0.9978 | 0.9978 | 1.0000 | ✅ |
+
+| Review-2 requirement | Status |
+|:--|:-:|
+| All 5 Part-B algorithms trained, no errors | ✅ |
+| Single table across all 10 classifiers — Accuracy, Precision, Recall, F1, ROC-AUC | ✅ cell 81 |
+| Confusion matrix and ROC curve per Part-B model | ✅ cells 77–78 |
+| 5-fold CV of the two best — Decision Tree 0.9998 ± 0.0004, Bagging 0.9995 ± 0.0004 | ✅ cell 84 |
+| Final model selected with justification — **Decision Tree** (best weighted F1 and accuracy; AdaBoost best ROC-AUC after rounding) | ✅ cells 86–87 |
+
+> 🔎 **Leakage audit, completed in the app.** All 192,477 registrations with `Electric Range = 0` are BEVs labelled *"battery range has not been researched"* — the same information as the dropped CAFV column, and the tree's first rule. See [Chapter 3](https://chargeiq.streamlit.app/vehicle-model).
+
+---
+
+## 🔌 Clustering Track — 2 / 2 Algorithms
+
+**Dataset:** synthetic EV charging sessions — Gholizadeh (2024), *Electric Vehicle Charging Dataset*, Mendeley Data, [doi:10.17632/5zrtmp7gwd.1](https://doi.org/10.17632/5zrtmp7gwd.1), CC BY 4.0 · **1,965,239 × 4**, of which a reproducible **100,000-session sample** is clustered · **Features:** connection time, charging duration, energy delivered · **Preprocessing:** median imputation → Yeo–Johnson → `StandardScaler` · **K = 3** from the elbow curve.
+
+| # | Algorithm | Configuration | Silhouette ⬆ | Davies–Bouldin ⬇ | Calinski–Harabasz ⬆ | Status |
+|:-:|:--|:--|--:|--:|--:|:-:|
+| 1 | **K-Means** | `n_clusters=3, n_init=5, max_iter=100` | **0.4094** | **0.9195** | **84,854.2** | ✅ |
+| 2 | Agglomerative | Ward linkage, 10-nearest-neighbour connectivity | 0.3898 | 0.9767 | 73,872.0 | ✅ |
+
+K-Means ranks first on all three metrics. Group sizes: K-Means 35,099 · 46,195 · 18,706; Agglomerative 49,776 · 18,803 · 31,421.
+
+| Review-2 requirement | Status |
+|:--|:-:|
+| Both algorithms fitted, labels obtained | ✅ cells 15, 21 |
+| Silhouette, Davies–Bouldin, Calinski–Harabasz for both | ✅ cells 23, 33 |
+| Elbow curve | ✅ cell 13 |
+| Dendrograms — single, complete, average, Ward | ✅ cells 17, 19 |
+| PCA-2D scatter for **every** algorithm *(mandatory)* | ✅ cells 25, 27 — 88.53 % of variance |
+| t-SNE for at least one algorithm | ✅ cell 29 — K-Means, 1,000 sessions |
+| No labels during fitting | ✅ |
+
+---
+
+## 🖥️ Live App — Bonus
+
+**[chargeiq.streamlit.app](https://chargeiq.streamlit.app)** — eleven chapters, three tracks, each told as *meet the data → how the model works → try it yourself*, ending in a conclusion.
+
+| Bonus requirement | Status |
+|:--|:-:|
+| GUI that accepts user inputs and returns predictions from the trained models | ✅ all three models — vehicle type, State of Health, charging group |
+| Accessible via a public URL | ✅ Streamlit Community Cloud, verified from a signed-out session |
+| The notebooks' own models | ✅ rebuilt by `models/export_*.py` and written only after matching the notebooks' stored results |
+| Automated tests | ✅ 259 — models, every quote and figure against the notebooks, deployment readiness |
 
 ---
 
@@ -219,19 +317,20 @@ Both reviews are in-person presentations. **Every team member must be able to ex
 
 ### Review 2 — 25 marks (+2 bonus)
 
-| § | Criterion | Max | Status |
-|:-:|:--|--:|:-:|
-| A1 | Classification Part B — 5 algorithms | 3 | ⬜ |
-| A2 | Full 10-algorithm comparison table | 1 | ⬜ |
-| A3 | Final model selection + tuning | 2 | ⬜ |
-| B1 | Clustering implementation (both algorithms) | 4 | ⬜ |
-| B2 | Silhouette / DB / CH + Elbow + Dendrogram | 2 | ⬜ |
-| B3 | PCA-2D per algorithm + t-SNE for one | 2 | ⬜ |
-| C1 | Code quality | 1 | 🚧 |
-| C2 | README & documentation | 1 | ✅ |
-| C3 | GitHub history + `requirements.txt` | 1 | ✅ |
-| D | Presentation & Viva | 8 | ⬜ |
-| — | Bonus — GUI / deployment | +2 | ⬜ |
+| § | Criterion | Max | Status | Note |
+|:-:|:--|--:|:-:|:--|
+| A1 | Classification Part B — 5 algorithms | 3 | ✅ | RF, AdaBoost, Gradient Boosting, Bagging, MLP |
+| A2 | Full 10-algorithm comparison table | 1 | ✅ | Accuracy, Precision, Recall, weighted F1, ROC-AUC — cell 81 |
+| A3 | Final model selection + tuning | 2 | ✅ | Decision Tree; RF and AdaBoost grids; 5-fold CV |
+| B1 | Clustering implementation (both algorithms) | 4 | ✅ | K-Means + Agglomerative, K = 3 |
+| B2 | Silhouette / DB / CH + Elbow + Dendrogram | 2 | ✅ | Both algorithms; four linkages |
+| B3 | PCA-2D per algorithm + t-SNE for one | 2 | ✅ | PCA for both, t-SNE for K-Means |
+| C1 | Code quality | 1 | 🚧 | Fix `clustering.ipynb`'s hard-coded Windows dataset path (cell 5) |
+| C2 | README & documentation | 1 | ✅ | README, PROGRESS.md, folder READMEs, `app/DEPLOYMENT.md` |
+| C3 | GitHub history + `requirements.txt` | 1 | ✅ | 93 commits; pinned requirements |
+| D | Presentation & Viva | 8 | ⬜ | On the day — see the review walkthrough |
+| | **Implementation subtotal** | **17** | **✅ 16/17** | **C1 pending one fix** |
+| ⭐ | Bonus — GUI / deployment | +2 | ✅ | [chargeiq.streamlit.app](https://chargeiq.streamlit.app) |
 
 ---
 
@@ -239,38 +338,38 @@ Both reviews are in-person presentations. **Every team member must be able to ex
 
 ### 🚗 Classification Part B *(6 marks)*
 
-- [ ] Random Forest Classifier — feature importance, tune `n_estimators`
-- [ ] AdaBoost Classifier — tune `n_estimators` and `learning_rate`
-- [ ] Gradient Boosting Classifier — sklearn GBM or XGBoost / LightGBM
-- [ ] Bagging Classifier — Decision Tree as base estimator
-- [ ] MLP Classifier — tune `hidden_layer_sizes` and `activation`
-- [ ] **Single consolidated table across all 10 classification algorithms** — Accuracy, Precision, Recall, F1, ROC-AUC
-- [ ] **ROC-AUC** — the target is binary, so a standard ROC-AUC applies; OvR is only needed if the target is ever changed to a multi-class one
-- [ ] Final model selection with justification + tuning + documented improvement
+- [x] Random Forest Classifier — feature importance, tuned `n_estimators` × `max_depth`
+- [x] AdaBoost Classifier — tuned `n_estimators` and `learning_rate`
+- [x] Gradient Boosting Classifier — scikit-learn, on 100 `TruncatedSVD` components
+- [x] Bagging Classifier — Decision Tree as base estimator
+- [x] MLP Classifier — `(100, 50)`, ReLU, early stopping
+- [x] **Single consolidated table across all 10 classification algorithms** — Accuracy, Precision, Recall, F1, ROC-AUC
+- [x] **ROC-AUC** for every model, with ROC curves for Part B
+- [x] Final model selection with justification + tuning + 5-fold CV
 
 ### 🔌 Clustering Track *(8 marks)*
 
-- [ ] Obtain the EV Charging Session dataset and place it under `data/`
-- [ ] Create `notebooks/clustering.ipynb`
-- [ ] K-Means — **Elbow curve** (inertia vs. k) to choose k
-- [ ] Agglomerative Hierarchical Clustering — **Dendrogram**, compare linkage strategies
-- [ ] Silhouette Score, Davies-Bouldin Index, Calinski-Harabasz Index for **both** algorithms
-- [ ] **PCA-reduced 2D scatter with cluster colour-coding for every algorithm** *(mandatory)*
-- [ ] t-SNE plot for at least one algorithm
-- [ ] ⚠️ **No labels during fitting.** Any ground-truth/site-type field may be used *only afterwards* to interpret clusters.
+- [x] Obtain the EV charging-session dataset and place it under `data/Clustering_Dataset/`
+- [x] Create `notebooks/clustering.ipynb`
+- [x] K-Means — **Elbow curve** (inertia vs. k) to choose k
+- [x] Agglomerative Hierarchical Clustering — **Dendrogram**, compare linkage strategies
+- [x] Silhouette Score, Davies-Bouldin Index, Calinski-Harabasz Index for **both** algorithms
+- [x] **PCA-reduced 2D scatter with cluster colour-coding for every algorithm** *(mandatory)*
+- [x] t-SNE plot for at least one algorithm
+- [x] No labels during fitting
 
 ### 🧩 Pipeline Integration & Quality *(3 marks)*
 
 - [x] README with dataset description, problem statement, results table, environment setup and how-to-run *(C2)* — [README.md](README.md)
-- [x] `requirements.txt` present with pinned versions *(C3)* — [requirements.txt](requirements.txt)
-- [x] Single regression notebook; Guidelines-mandated repo layout; `.DS_Store` untracked *(C1/C3)*
-- [x] All 27 figures saved to [`assets/figures/`](assets/figures) by the notebooks and surfaced in the README gallery
-- [x] Folder-level documentation — [`notebooks/README.md`](notebooks/README.md) (per-notebook section maps, dataset paths, how to run) and [`data/README.md`](data/README.md) (expected layout, column-level description of both datasets)
-- [ ] All notebooks run top-to-bottom without errors *(C1)* — ✅ regression, ✅ classification Part A; pending the Part B and clustering work
+- [x] `requirements.txt` present with pinned versions *(C3)* — [requirements.txt](requirements.txt), plus [app/requirements.txt](app/requirements.txt)
+- [x] Single notebook per track; Guidelines-mandated repo layout; `.DS_Store` untracked *(C1/C3)*
+- [x] Folder-level documentation — [`notebooks/`](notebooks/README.md), [`data/`](data/README.md), [`app/`](app/README.md), [`models/`](models/README.md)
+- [ ] All notebooks run top-to-bottom without errors *(C1)* — ✅ regression, ✅ classification; **`clustering.ipynb` needs its dataset path changed** to `../data/Clustering_Dataset/SYNTHETIC_EV_DATA.csv`
 
 ### 🎁 Bonus *(up to +2)*
 
-- [ ] GUI / deployed application in `app/` — e.g. a Streamlit page that takes cycle features and returns a predicted SOH %
+- [x] GUI in `app/` — all three trained models, each with its own interactive chapter
+- [x] Deployed at a public URL — [chargeiq.streamlit.app](https://chargeiq.streamlit.app)
 
 ---
 
@@ -278,12 +377,13 @@ Both reviews are in-person presentations. **Every team member must be able to ex
 
 | | Item | Impact | Action |
 |:-:|:--|:--|:--|
-| 🟡 | **Classification scores are near-perfect** (Decision Tree 0.9999) | Not a bug — `Model`, `Make` and `Electric Range` are near-deterministic proxies for BEV vs PHEV even after the CAFV column is dropped | Expect a viva question; the Review-2 ROC-AUC work is the natural place to probe it |
+| 🟠 | **`clustering.ipynb` reads its data from `D:\5th Sem\ML\SYNTHETIC_EV_DATA.csv`** (cell 5) | The notebook will not run on any other machine — costs the C1 mark | Set `CSV_PATH = "../data/Clustering_Dataset/SYNTHETIC_EV_DATA.csv"` and re-run |
+| 🟡 | **Classification scores are near-perfect** (Decision Tree 0.9999) | Explained: `Electric Range = 0` means "range not researched" and carries the CAFV information that was dropped | Shown openly in [app Chapter 3](https://chargeiq.streamlit.app/vehicle-model); expect a viva question |
+| 🟡 | **Regression tuning used ordinary 5-fold CV** (cell 61), so cycles of one battery can sit in training and validation folds | Tuning scores are optimistic; the held-out evaluation on 6 unseen batteries and the GroupKFold CV (cell 78) are unaffected | Acknowledge in the viva; grouping the tuning folds is the natural next step |
 | 🟡 | **Severe feature collinearity** in the regression track — `ambient_temperature` correlates 0.94 with `charge_max_temp`, 0.82 with `charge_time_to_cv`, −0.78 with `Rct` | Linear coefficients cannot be read as isolated effects; some signs flip | Already documented in §C1.1; be ready to explain |
-| 🟡 | **Clustering dataset not yet in `data/`** | Blocks the entire Review-2 clustering track (8 marks) | Source the EV Charging Session dataset early; place it in its own `data/Clustering_Dataset/` |
-| 🟡 | **Dataset subfolders cannot carry their own README** — `.gitignore` excludes `/data/Regression_Dataset` and `/data/Classification_Dataset` wholesale, so any file inside them is untracked | A per-folder README would never reach GitHub | Both are documented inside the committable [`data/README.md`](data/README.md) instead |
-| 🟡 | **`app/README.md` and `models/README.md` are 0 bytes** | Both folders are required by the Guidelines layout but carry no explanation | Fill them when the Review-2 GUI and saved-model work begins |
-
+| 🟡 | **Some figures are not in `assets/figures/`** — Part B's confusion matrices, ROC curves, RF importances and comparison chart; the saved Naive Bayes confusion matrix is from an earlier run | The README gallery cannot show them | Add `plt.savefig` calls to those cells and re-run |
+| 🟡 | **The app sleeps after 12 hours without visitors** | A wake-up screen on first visit | Open [the app](https://chargeiq.streamlit.app) shortly before each review |
+| 🟢 | **Dataset subfolders cannot carry their own README** — `.gitignore` excludes `/data/*_Dataset` wholesale | A per-folder README would never reach GitHub | All three are documented in the committable [`data/README.md`](data/README.md) |
 ---
 
 ## 🔁 Keeping This File Current

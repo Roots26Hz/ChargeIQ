@@ -9,8 +9,10 @@ Results tables and the figure gallery live in the [root README](../README.md); m
 | File | Track | Target | Algorithms | Status |
 |:--|:--|:--|:-:|:-:|
 | `regression.ipynb` | 🔋 Regression | `SOH_pct` — State of Health (%) | 10 / 10 | ✅ |
-| `classification.ipynb` | 🚗 Classification — Part A | `Electric Vehicle Type` — BEV vs PHEV | 5 / 5 | ✅ |
-| `clustering.ipynb` | 🔌 Clustering | *none — unsupervised* | 0 / 2 | ⬜ not created yet |
+| `classification.ipynb` | 🚗 Classification — Part A + Part B | `Electric Vehicle Type` — BEV vs PHEV | 10 / 10 | ✅ |
+| `clustering.ipynb` | 🔌 Clustering | *none — unsupervised* | 2 / 2 | ✅ |
+
+Two data files sit beside `clustering.ipynb`, written by its last cell: `EV_clustering_sample_with_labels.csv` (the exact 100,000-session sample it clustered, with both algorithms' labels) and `EV_clustering_evaluation_metrics.csv` (both algorithms' metrics).
 
 ---
 
@@ -48,7 +50,7 @@ export CHARGEIQ_REGRESSION_DATA="/path/to/your/cleaned_dataset"
 
 ## 🚗 `classification.ipynb`
 
-Predicts **`Electric Vehicle Type`** (BEV vs PHEV) from the Washington State EV Population dataset. 56 cells, Part A of the classification track.
+Predicts **`Electric Vehicle Type`** (BEV vs PHEV) from the Washington State EV Population dataset. 88 cells: Part A (five classifiers, Review 1) and Part B (five more, Review 2).
 
 | § | Contents |
 |:--|:--|
@@ -61,7 +63,9 @@ Predicts **`Electric Vehicle Type`** (BEV vs PHEV) from the Washington State EV 
 | 8 | `OneHotEncoder` + `StandardScaler` via `ColumnTransformer`, fitted on training data only |
 | 9–13 | Algorithms 1–5 — Logistic Regression, KNN, Gaussian NB, Decision Tree, SVM *(8 saved figures)* |
 | 14 | Comparison of all five, with bar chart |
-| 15 | Conclusion |
+| Part B, 6–10 | Random Forest (tuned, with feature importances), AdaBoost (tuned), Gradient Boosting (on 100 `TruncatedSVD` components), Bagging, MLP |
+| Part B | Confusion matrices and ROC curves; the 10-classifier comparison with ROC-AUC (cell 81); 5-fold CV of the two best (cell 84) |
+| Part B | Final model selection and conclusion — Decision Tree (cells 86–87) |
 
 **Three columns are dropped before modelling**, for two different reasons: `VIN (1-10)` and `DOL Vehicle ID` are identifiers, and `Clean Alternative Fuel Vehicle (CAFV) Eligibility` is excluded as a **target proxy** — it is derived from vehicle type and electric range, so leaving it in would leak the answer.
 
@@ -69,24 +73,39 @@ Reads `../data/Classification_Dataset/Electric_Vehicle_Population_Data.csv`.
 
 ---
 
-## 🔌 `clustering.ipynb` — not created yet
+## 🔌 `clustering.ipynb`
 
-Due for Review 2. Will cover K-Means and Agglomerative Hierarchical Clustering on EV charging-session data, reporting Silhouette, Davies-Bouldin and Calinski-Harabasz scores, with an Elbow curve, a dendrogram and mandatory PCA-2D cluster plots. No labels are used during fitting.
+Groups EV charging sessions — when they start, how long they last, how much energy they deliver — on a **synthetic** dataset (see [`../data/README.md`](../data/README.md)). 38 cells. No labels are used during fitting.
+
+| Cells | Contents |
+|:--|:--|
+| 3–9 | Imports; load; audit; cleaning — 1,965,239 sessions, all retained |
+| 10–11 | EDA — distributions and correlation heatmap, on 10,000 sessions |
+| 12–13 | A reproducible 100,000-session sample; median imputation → Yeo–Johnson → `StandardScaler`; elbow curve for K = 2…10 |
+| 14–15 | K-Means, K = 3 |
+| 16–21 | Single, complete, average and Ward dendrograms (500 sessions); Agglomerative clustering, Ward + 10-nearest-neighbour connectivity |
+| 22–23, 32–33 | Silhouette (5,000-session subset), Davies–Bouldin and Calinski–Harabasz for both, ranked |
+| 24–29 | PCA-2D for both algorithms; t-SNE for K-Means (1,000 sessions) |
+| 30–31 | Cluster profiles in original units |
+| 34–36 | Export of the sample and metrics; conclusion |
+
+> [!WARNING]
+> Cell 5 reads the dataset from `D:\5th Sem\ML\SYNTHETIC_EV_DATA.csv`. Change `CSV_PATH` to `../data/Clustering_Dataset/SYNTHETIC_EV_DATA.csv` before running it elsewhere.
 
 ---
 
 ## 🖼️ Figures
 
-Every figure is written to [`../assets/figures/`](../assets/figures) by a `plt.savefig` call in the cell that draws it, so **Run All** regenerates the whole gallery:
+The regression notebook and Part A of the classification notebook write their figures to [`../assets/figures/`](../assets/figures) with a `plt.savefig` call in the cell that draws them, so **Run All** regenerates them. `clustering.ipynb` only displays its plots; its 8 figures were extracted byte for byte from the stored outputs by [`../models/export_clustering.py`](../models/export_clustering.py). Classification Part B's figures appear in the notebook only.
 
 ```
 assets/figures/regression/eda/          3 figures
 assets/figures/regression/models/       3 figures
 assets/figures/classification/eda/     13 figures
 assets/figures/classification/models/   8 figures
+assets/figures/clustering/eda/          2 figures
+assets/figures/clustering/models/       6 figures
 ```
-
-The directories are created automatically on first run — no setup needed.
 
 ---
 
@@ -99,7 +118,7 @@ pip install -r ../requirements.txt
 ```
 
 ```bash
-jupyter lab regression.ipynb classification.ipynb
+jupyter lab regression.ipynb classification.ipynb clustering.ipynb
 ```
 
-Download the datasets first — see [`../data/README.md`](../data/README.md). Both notebooks are deterministic (`random_state=42`) and run top to bottom with no manual steps. Paths are relative to this folder, so launch Jupyter with `notebooks/` as the working directory.
+Download the datasets first — see [`../data/README.md`](../data/README.md). All three notebooks are deterministic (`random_state=42`); the regression and classification notebooks run top to bottom with no manual steps, and the clustering notebook does once its dataset path is set (see above). Paths are relative to this folder, so launch Jupyter with `notebooks/` as the working directory.

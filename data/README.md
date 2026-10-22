@@ -3,9 +3,9 @@
 Raw datasets for the three ChargeIQ tracks. **Each track has its own dataset — nothing is shared between them.**
 
 > [!IMPORTANT]
-> The dataset files are **not committed**. Both subfolders are gitignored (`.gitignore` → `#Datasets`), because they total roughly 650 MB. Download them before running any notebook.
+> The dataset files are **not committed**. All three subfolders are gitignored (`.gitignore` → `#Datasets`), because they total roughly 770 MB — and the clustering file alone is over GitHub's 100 MB limit. Download them before running any notebook. The live app needs none of them.
 
-**Download:** all datasets are available at this [OneDrive link](https://amritavishwavidyapeetham-my.sharepoint.com/:f:/g/personal/cb_sc_u4cse24664_cb_students_amrita_edu/IgAhvNV5RuhjTrFM-UakeblJAfpsW5pjQ2QUCYFpDwVBYF4?e=5itzGU).
+**Download:** the regression and classification datasets are available at this [OneDrive link](https://amritavishwavidyapeetham-my.sharepoint.com/:f:/g/personal/cb_sc_u4cse24664_cb_students_amrita_edu/IgAhvNV5RuhjTrFM-UakeblJAfpsW5pjQ2QUCYFpDwVBYF4?e=5itzGU).
 
 ## Expected layout
 
@@ -16,8 +16,10 @@ data/
 │   ├── metadata.csv                              7,565 × 10 — index of every cycle
 │   ├── data/                                     7,565 per-cycle curve CSVs
 │   └── extra_infos/                              9 NASA README files, one per battery group
-└── Classification_Dataset/                    ← 🚗 classification track only  (~77 MB)
-    └── Electric_Vehicle_Population_Data.csv      294,193 × 16
+├── Classification_Dataset/                    ← 🚗 classification track only  (~77 MB)
+│   └── Electric_Vehicle_Population_Data.csv      294,193 × 16
+└── Clustering_Dataset/                        ← 🔌 clustering track only      (~115 MB)
+    └── SYNTHETIC_EV_DATA.csv                     1,965,239 × 4
 ```
 
 Recreate this structure exactly — the notebooks use these relative paths.
@@ -83,6 +85,25 @@ The class imbalance is why the notebook reports **weighted** precision, recall a
 
 ---
 
-## 🔌 Clustering dataset — not yet added
+## 🔌 `Clustering_Dataset/` — Electric Vehicle Charging Dataset *(synthetic)*
 
-The EV charging-session dataset for Review 2 is not in this folder yet. When added it should sit in its own `Clustering_Dataset/` subfolder, following the same one-track-one-folder convention.
+Used by [`notebooks/clustering.ipynb`](../notebooks/clustering.ipynb). **Unsupervised — no target.**
+
+> [!IMPORTANT]
+> **This data is synthetic.** It was generated with conditional tabular GANs (CTGAN) and kernel density estimation from real charging sessions at a Caltech EV parking lot, extending 185 real days to 29,600 synthetic ones.
+
+**Source:** Gholizadeh, N. (2024). *Electric Vehicle Charging Dataset*. Mendeley Data, V1. [doi:10.17632/5zrtmp7gwd.1](https://doi.org/10.17632/5zrtmp7gwd.1). Licensed **CC BY 4.0** — credit the author when reusing it. Downloaded from its [Kaggle mirror](https://www.kaggle.com/datasets/mexwell/electric-vehicle-charging-dataset), where the file is 120,370,559 bytes.
+
+### `SYNTHETIC_EV_DATA.csv` — 1,965,239 rows × 4 columns
+
+| Column | Meaning | Unit |
+|:--|:--|:--|
+| `connectionTime_decimal` | When the car was plugged in | hour of day, 0–24 |
+| `chargingDuration` | How long it charged | hours |
+| `kWhDelivered` | Energy delivered | kWh |
+| `dayIndicator` | Day number, 1–29,600 — **not used for clustering** | — |
+
+No missing values and no duplicate rows. The notebook clusters a reproducible **100,000-row sample** (`random_state=42`), saved with both algorithms' labels as [`notebooks/EV_clustering_sample_with_labels.csv`](../notebooks/EV_clustering_sample_with_labels.csv) — which is all the app and its tests need.
+
+> [!WARNING]
+> `clustering.ipynb` cell 5 still reads the file from `D:\5th Sem\ML\SYNTHETIC_EV_DATA.csv`. Point `CSV_PATH` at `../data/Clustering_Dataset/SYNTHETIC_EV_DATA.csv` to use this folder.

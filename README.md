@@ -8,6 +8,8 @@
 
 <br>
 
+[![Open the live app](https://img.shields.io/badge/▶%20Open%20the%20live%20app-chargeiq.streamlit.app-2E7D32?style=for-the-badge&logo=streamlit&logoColor=white)](https://chargeiq.streamlit.app)
+
 [<img src="assets/badges/btn-regression.svg" alt="Jump to the Regression track" height="44">](#-track-1--regression--battery-state-of-health)
 [<img src="assets/badges/btn-classification.svg" alt="Jump to the Classification track" height="44">](#-track-2--classification--electric-vehicle-type)
 [<img src="assets/badges/btn-gallery.svg" alt="Jump to the Figure Gallery" height="44">](#figure-gallery)
@@ -16,19 +18,23 @@
 <br>
 
 [![Python](https://img.shields.io/badge/Python-3.13-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
-[![scikit-learn](https://img.shields.io/badge/scikit--learn-ML-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white)](https://scikit-learn.org/)
+[![scikit-learn](https://img.shields.io/badge/scikit--learn-1.9.0-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white)](https://scikit-learn.org/)
 [![Pandas](https://img.shields.io/badge/Pandas-Data-150458?style=for-the-badge&logo=pandas&logoColor=white)](https://pandas.pydata.org/)
 [![NumPy](https://img.shields.io/badge/NumPy-Compute-013243?style=for-the-badge&logo=numpy&logoColor=white)](https://numpy.org/)
 [![Jupyter](https://img.shields.io/badge/Jupyter-Notebooks-F37626?style=for-the-badge&logo=jupyter&logoColor=white)](https://jupyter.org/)
+[![Streamlit](https://img.shields.io/badge/Streamlit-1.66.1-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://streamlit.io/)
 
 [![Course](https://img.shields.io/badge/23CSE301-Machine%20Learning-0A66C2?style=flat-square)](#)
-[![Review 2](https://img.shields.io/badge/Review%202-Not%20Started-9E9E9E?style=flat-square)](PROGRESS.md)
+[![Review 2](https://img.shields.io/badge/Review%202-Implemented-2E7D32?style=flat-square)](PROGRESS.md)
+[![Bonus](https://img.shields.io/badge/Bonus-GUI%20%2B%20public%20deployment-2E7D32?style=flat-square)](#the-live-app)
 
 [<img src="assets/badges/badge-review1-complete.svg" alt="Review 1: Complete" height="28">](PROGRESS.md)
 [<img src="assets/badges/badge-regression-10-10.svg" alt="Regression: 10 of 10 algorithms" height="28">](#-track-1--regression--battery-state-of-health)
 [<img src="assets/badges/badge-classification-a-5-5.svg" alt="Classification Part A: 5 of 5" height="28">](#-track-2--classification--electric-vehicle-type)
+[![Classification Part B: 5 of 5](https://img.shields.io/badge/Classification%20Part%20B-5%2F5-43A047?style=flat-square)](#classification-part-b)
+[![Clustering: 2 of 2](https://img.shields.io/badge/Clustering-2%2F2-43A047?style=flat-square)](#clustering-track)
 [<img src="assets/badges/badge-best-r2.svg" alt="Best R-squared: 0.815" height="28">](#-results--all-10-algorithms)
-[<img src="assets/badges/badge-best-f1.svg" alt="Best weighted F1: 0.9999" height="28">](#-results--all-5-part-a-algorithms)
+[<img src="assets/badges/badge-best-f1.svg" alt="Best weighted F1: 0.9999" height="28">](#classification-comparison)
 
 </div>
 
@@ -41,14 +47,39 @@ An electric vehicle generates three completely different kinds of question. **Ch
 | | Track | Real-world question | Target | Status |
 |:-:|:--|:--|:--|:-:|
 | 🔋 | **Regression** | *"How much life is left in this battery?"* | **State-of-Health (SOH, %)** — continuous | ✅ 10/10 |
-| 🚗 | **Classification** | *"What kind of electric vehicle is this?"* | **`Electric Vehicle Type`** — BEV vs PHEV | ✅ 5/5 Part A |
-| 🔌 | **Clustering** | *"What charging-behaviour archetypes exist among drivers?"* | *None — unsupervised* | ⬜ Review 2 |
+| 🚗 | **Classification** | *"What kind of electric vehicle is this?"* | **`Electric Vehicle Type`** — BEV vs PHEV | ✅ 10/10 — Part A + Part B |
+| 🔌 | **Clustering** | *"What charging-behaviour patterns exist among drivers?"* | *None — unsupervised* | ✅ 2/2 |
 
 > [!IMPORTANT]
 > The three tracks are **fully independent**. Each has its own dataset, its own preprocessing, its own target and its own evaluation. Nothing is shared between them — no joint feature matrix, no joint split, no joint model.
 
 > [!NOTE]
 > For the Regression track the **single target is SOH (%)**, computed as `SOH_pct = 100 × Capacity / NOMINAL_CAPACITY`. Remaining Useful Life is *not* modelled anywhere in this project.
+
+---
+
+<a id="the-live-app"></a>
+
+## 🖥️ The Live App
+
+**[chargeiq.streamlit.app](https://chargeiq.streamlit.app)** — the three trained models, behind an interactive story anyone can open in a browser. No sign-in, nothing to install.
+
+| | Chapters | Try it yourself |
+|:-:|:--|:--|
+| 💡 | **1 · The problem** — the three questions | — |
+| 🚗 | **2 · Meet the data · 3 · How the model thinks · 4 · Make a prediction** | Describe a vehicle → BEV or PHEV, with the exact path the decision tree took |
+| 🔋 | **5 · Meet the data · 6 · How the model learns · 7 · Estimate battery health** | Pick a cycle from a battery the model never saw → predicted vs measured SOH, then adjust its measurements |
+| 🔌 | **8 · Meet the data · 9 · How the model groups · 10 · Place a charging session** | Describe a charging session → its K-Means group and where it lands on the PCA map |
+| 🏁 | **11 · Conclusion** — the three tracks side by side, with their limits | — |
+
+**How it is built**
+
+- **The notebooks' own models.** None of the notebooks saved its trained model, so `models/export_*.py` rebuilds each one by replaying the notebook's cells verbatim, and writes it only after the replay matches the results stored in the notebook — the classification confusion matrix `[[47509, 5], [0, 11325]]`, the regression R² 0.8153 and its five GroupKFold folds, and every one of the 100,000 stored K-Means labels. Each export is deterministic: run twice, it writes identical files.
+- **Every claim is traceable.** Interpretive text is quoted from the notebooks and cites its cell; an automated test checks each quote word for word, and checks every figure against the notebook output it came from.
+- **Tested and deployed.** 259 automated tests (`app/tests/`) cover the models, the app and deployment readiness. The app runs on Streamlit Community Cloud with Python 3.13 and exactly pinned dependencies ([`app/requirements.txt`](app/requirements.txt)); every push to `main` redeploys it. See [`app/DEPLOYMENT.md`](app/DEPLOYMENT.md).
+
+> [!TIP]
+> The app sleeps after 12 hours without visitors. If you see a wake-up screen, press the button and give it a moment.
 
 ---
 
@@ -77,25 +108,26 @@ flowchart LR
     P2["🧪 Preprocessing<br/>median/mode impute · drop identifiers<br/>drop CAFV target-proxy · Vehicle Age"]
     T2["🎯 Target<br/>Electric Vehicle Type<br/>BEV 80.75% / PHEV 19.25%"]
     S2["✂️ Stratified 80:20 split<br/>60k training subset<br/>OneHotEncoder + StandardScaler (train-fit only)"]
-    A2["🤖 5 Classifiers — Part A<br/>LogisticRegression · KNN · GaussianNB<br/>DecisionTree · SVC"]
-    E2["📊 Evaluation<br/>Accuracy · Precision · Recall · weighted F1<br/>confusion matrix per model"]
+    A2["🤖 10 Classifiers<br/>Part A: LogisticRegression · KNN · GaussianNB · DecisionTree · SVC<br/>Part B: RandomForest · AdaBoost · GradientBoosting · Bagging · MLP"]
+    E2["📊 Evaluation<br/>Accuracy · Precision · Recall · weighted F1 · ROC-AUC<br/>confusion matrices · ROC curves · 5-fold CV"]
     D2 --> P2 --> T2 --> S2 --> A2 --> E2
     classDef done fill:#2E7D32,stroke:#1B5E20,color:#fff
     class D2,P2,T2,S2,A2,E2 done
 ```
 
-### 🔌 Clustering Track — *Review 2*
+### 🔌 Clustering Track
 
 ```mermaid
 flowchart LR
-    D3["📥 EV Charging Session data"]
-    P3["🧪 Preprocessing<br/>per-user / per-station aggregation"]
+    D3["📥 Synthetic EV charging sessions<br/>1,965,239 × 4"]
+    S3["🎲 Reproducible sample<br/>100,000 sessions"]
+    P3["🧪 Preprocessing<br/>median impute · Yeo-Johnson<br/>StandardScaler"]
     T3["🎯 No labels during fitting"]
-    A3["🤖 K-Means + Agglomerative"]
-    E3["📊 Silhouette · Davies-Bouldin · Calinski-Harabasz<br/>Elbow · Dendrogram · PCA-2D"]
-    D3 -.-> P3 -.-> T3 -.-> A3 -.-> E3
-    classDef todo fill:#37474F,stroke:#263238,color:#ECEFF1,stroke-dasharray: 5 5
-    class D3,P3,T3,A3,E3 todo
+    A3["🤖 K-Means (K = 3)<br/>Agglomerative — Ward + kNN connectivity"]
+    E3["📊 Silhouette · Davies-Bouldin · Calinski-Harabasz<br/>Elbow · Dendrograms · PCA-2D · t-SNE"]
+    D3 --> S3 --> P3 --> T3 --> A3 --> E3
+    classDef done fill:#2E7D32,stroke:#1B5E20,color:#fff
+    class D3,S3,P3,T3,A3,E3 done
 ```
 
 ---
@@ -257,13 +289,10 @@ All five trained on the same 60,000-row preprocessed training subset and evaluat
 | 🥇 | **Decision Tree Classifier** | `max_depth=7` *(validation-tuned)* | **0.9999** | **0.9999** | **0.9999** | **0.9999** |
 | 🥈 | Support Vector Machine (SVC) | `kernel=rbf, C=1.0` *(grid-tuned)* | 0.9975 | 0.9975 | 0.9975 | 0.9975 |
 | 🥉 | Logistic Regression | `max_iter=1000` *(baseline)* | 0.9933 | 0.9933 | 0.9933 | 0.9933 |
-| 4 | Gaussian Naive Bayes | — | 0.9867 | 0.9874 | 0.9867 | 0.9868 |
+| 4 | Gaussian Naive Bayes | — *(15,000-row stratified subset)* | 0.9834 | 0.9841 | 0.9834 | 0.9835 |
 | 5 | K-Nearest Neighbors | `k=3`, Euclidean *(validation-tuned)* | 0.9725 | 0.9722 | 0.9725 | 0.9723 |
 
-**Best model: Decision Tree** on both accuracy and weighted F1.
-
-> [!NOTE]
-> **Why the scores are so high.** Even after dropping the CAFV column, several retained features are near-deterministic indicators of vehicle type — `Model` and `Make` identify a specific car, and `Electric Range` separates BEVs from PHEVs almost perfectly. The task is therefore genuinely easy rather than the models being unusually good. This is documented deliberately, and the ROC-AUC analysis due in Review 2 will probe it further.
+**Best model in Part A: Decision Tree** on both accuracy and weighted F1.
 
 <details>
 <summary><b>🔬 Model-specific notes</b></summary>
@@ -272,11 +301,128 @@ All five trained on the same 60,000-row preprocessed training subset and evaluat
 
 - **Logistic Regression** — coefficients and odds ratios reported for the top 10 positive and negative encoded features.
 - **KNN** — `k` swept over `[3, 5, 7, 9, 11]` on a stratified 30,000-row tuning subset with a held-out validation split; Euclidean distance used throughout, appropriate because all numerical features are standardised and categoricals are one-hot encoded.
-- **Gaussian Naive Bayes** — requires dense input, so the sparse encoded matrix is densified; the conditional-independence assumption is discussed in the notebook.
+- **Gaussian Naive Bayes** — requires dense input, so it is trained on a stratified 25 % subset of the training rows (15,000), densified, and evaluated on the full test set in batches; the conditional-independence assumption is discussed in the notebook.
 - **Decision Tree** — `max_depth` swept over `[3, 5, 7, 10, 15, 20]` on a validation split carved from the 60k training subset; the fitted tree is visualised to 3 levels.
 - **SVM** — `C ∈ [0.1, 1, 10]` × `kernel ∈ [linear, rbf]` tuned on a stratified 10,000-row subset, since full-size SVM training is expensive; the final model is refit on all 60,000 rows.
 
 </details>
+
+<a id="classification-part-b"></a>
+
+### 🧩 Part B — five more classifiers
+
+The same 60,000-row training subset, the same 58,839-row test set and the same metrics as Part A, now with **ROC-AUC** for every model.
+
+| # | Algorithm | Configuration | Accuracy | Weighted F1 | ROC-AUC |
+|:-:|:--|:--|--:|--:|--:|
+| 6 | Random Forest | `n_estimators=100, max_depth=None` — tuned over `{100, 200} × {10, 20, None}` on a 20,000-row subset | 0.9988 | 0.9988 | 1.0000 |
+| 7 | AdaBoost | depth-1 stumps; `n_estimators=50, learning_rate=0.5` — tuned over `{50, 100} × {0.5, 1.0}` | 0.9994 | 0.9994 | 1.0000 |
+| 8 | Gradient Boosting | `n_estimators=100, learning_rate=0.1, max_depth=3` on a 100-component `TruncatedSVD` of the 1,694 encoded features | 0.9928 | 0.9928 | 0.9995 |
+| 9 | Bagging | 50 decision trees (`max_depth=15`), `max_samples=0.8` | **0.9999** | **0.9999** | 0.9999 |
+| 10 | MLP | `hidden_layer_sizes=(100, 50)`, ReLU, Adam, early stopping — stopped after 20 iterations | 0.9978 | 0.9978 | 1.0000 |
+
+Part B also adds a confusion matrix and a ROC curve for every model, and Random Forest feature importances (`classification.ipynb` §6–10).
+
+<a id="classification-comparison"></a>
+
+### 🏆 All 10 classifiers compared
+
+| Rank | Model | Part | Accuracy | Precision | Recall | Weighted F1 | ROC-AUC |
+|:-:|:--|:-:|--:|--:|--:|--:|--:|
+| 🥇 | **Decision Tree** | A | **0.9999** | **0.9999** | **0.9999** | **0.9999** | 0.9999 |
+| 🥈 | Bagging | B | **0.9999** | **0.9999** | **0.9999** | **0.9999** | 0.9999 |
+| 🥉 | AdaBoost | B | 0.9994 | 0.9994 | 0.9994 | 0.9994 | **1.0000** |
+| 4 | Random Forest | B | 0.9988 | 0.9988 | 0.9988 | 0.9988 | **1.0000** |
+| 5 | MLP | B | 0.9978 | 0.9978 | 0.9978 | 0.9978 | **1.0000** |
+| 6 | SVM | A | 0.9975 | 0.9975 | 0.9975 | 0.9975 | 0.9998 |
+| 7 | Logistic Regression | A | 0.9933 | 0.9933 | 0.9933 | 0.9933 | 0.9997 |
+| 8 | Gradient Boosting | B | 0.9928 | 0.9928 | 0.9928 | 0.9928 | 0.9995 |
+| 9 | Gaussian Naive Bayes | A | 0.9834 | 0.9841 | 0.9834 | 0.9835 | 0.9840 |
+| 10 | KNN | A | 0.9725 | 0.9722 | 0.9725 | 0.9723 | 0.9837 |
+
+*Ranked as in the notebook (cell 81). Every ROC-AUC shown as 1.0000 is rounded to four places.*
+
+**5-fold cross-validation** of the two best models, on the 60,000-row training subset:
+
+| Model | Mean weighted F1 | Std |
+|:--|--:|--:|
+| Decision Tree | **0.9998** | 0.0004 |
+| Bagging | 0.9995 | 0.0004 |
+
+**Final model: Decision Tree** (`max_depth=7`) — best on weighted F1 and accuracy, and slightly ahead of Bagging in cross-validation; AdaBoost has the highest ROC-AUC after rounding. The selected tree has 15 leaves, and its first split is `Electric Range ≤ 0.5`.
+
+> [!IMPORTANT]
+> **Why the scores are so high.** In this dataset an `Electric Range` of 0 does not mean "no electric range": all 192,477 registrations with a range of 0 are BEVs, and each carries the CAFV value *"Eligibility unknown as battery range has not been researched"*. A range of 0 therefore carries the same information as the CAFV column that was dropped as a target proxy — and it is exactly the tree's first rule. `Make` and `Model` are near-deterministic as well. The notebook's conclusion (cell 87) calls for this leakage audit; [Chapter 3 of the app](https://chargeiq.streamlit.app/vehicle-model) shows the tree's actual rules.
+
+---
+
+<a id="clustering-track"></a>
+
+## 🔌 Track 3 — Clustering — Charging Sessions
+
+**Notebook:** [`notebooks/clustering.ipynb`](notebooks/clustering.ipynb) · **Dataset:** Electric Vehicle Charging Dataset *(synthetic)* · **Target:** none — unsupervised
+
+> [!IMPORTANT]
+> A third, completely separate dataset. And it is **synthetic**: the sessions were generated, not recorded, so the groups describe patterns in generated data.
+
+<details open>
+<summary><b>📦 Dataset</b></summary>
+
+<br>
+
+| | |
+|:--|:--|
+| **Source** | Gholizadeh, N. (2024). *Electric Vehicle Charging Dataset*. Mendeley Data, V1. [doi:10.17632/5zrtmp7gwd.1](https://doi.org/10.17632/5zrtmp7gwd.1) — via its [Kaggle mirror](https://www.kaggle.com/datasets/mexwell/electric-vehicle-charging-dataset). Licence **CC BY 4.0**. |
+| **How it was made** | Generated with conditional tabular GANs (CTGAN) and kernel density estimation from real sessions at a Caltech EV parking lot — 29,600 synthetic days from 185 real ones |
+| **Shape** | **1,965,239 × 4** — `connectionTime_decimal` (hour of day, 0–24), `chargingDuration` (hours), `kWhDelivered` (kWh), `dayIndicator` (day number, not used) |
+| **Medians** | connection 16:10 · duration 2.55 h · energy 9.2 kWh |
+| **Local path** | `data/Clustering_Dataset/SYNTHETIC_EV_DATA.csv` (120 MB, gitignored) |
+
+</details>
+
+### 🧪 Preprocessing
+
+1. **Audit and cleaning** — no missing values and no duplicates; all 1,965,239 sessions retained. Outliers are kept, since they may be genuine sessions.
+2. **Sample** — a reproducible **100,000-session** sample (`random_state=42`) for fitting and evaluation. The exact sample, with both algorithms' labels, is saved as [`notebooks/EV_clustering_sample_with_labels.csv`](notebooks/EV_clustering_sample_with_labels.csv).
+3. **Features** — `connectionTime_decimal`, `chargingDuration`, `kWhDelivered`; `dayIndicator` is left out.
+4. **Transform** — median imputation → **Yeo–Johnson** power transform (to reduce skew) → `StandardScaler`.
+5. **Choosing K** — the elbow curve over K = 2…10; **K = 3** is used for both algorithms, so they can be compared on equal terms.
+
+### 📊 Results — both algorithms
+
+Silhouette is estimated on a shared 5,000-session subset; Davies–Bouldin and Calinski–Harabasz use all 100,000 sessions.
+
+| Algorithm | Silhouette ⬆ | Davies–Bouldin ⬇ | Calinski–Harabasz ⬆ |
+|:--|--:|--:|--:|
+| **K-Means** (`n_init=5, max_iter=100`) | **0.4094** | **0.9195** | **84,854.2** |
+| Agglomerative (Ward, 10-nearest-neighbour connectivity) | 0.3898 | 0.9767 | 73,872.0 |
+
+**K-Means ranks first on all three metrics.** These are internal metrics — the data has no ground-truth labels to score against. K-Means is also the only one of the two that can place a *new* session in a group, which is why it powers the app.
+
+**The three K-Means groups** — each group's mean session *(group numbers are arbitrary labels)*:
+
+| Group | Sessions | Connection time | Duration | Energy |
+|:-:|--:|:-:|--:|--:|
+| 0 | 35,099 (35 %) | 17:50 | 1.92 h | 6.1 kWh |
+| 1 | 46,195 (46 %) | 16:43 | 6.26 h | 13.9 kWh |
+| 2 | 18,706 (19 %) | 02:43 | 1.31 h | 4.8 kWh |
+
+<details>
+<summary><b>Agglomerative groups, for comparison</b></summary>
+
+<br>
+
+| Group | Sessions | Connection time | Duration | Energy |
+|:-:|--:|:-:|--:|--:|
+| 0 | 49,776 (50 %) | 17:23 | 5.61 h | 13.7 kWh |
+| 1 | 18,803 (19 %) | 02:16 | 1.79 h | 5.4 kWh |
+| 2 | 31,421 (31 %) | 17:15 | 2.16 h | 5.1 kWh |
+
+*Its group numbers are independent of K-Means'.*
+
+</details>
+
+The first two principal components keep **88.53 %** of the variance; the notebook plots both algorithms' groups on that plane, a t-SNE view of 1,000 sessions, and dendrograms of 500 sessions for single, complete, average and Ward linkage.
 
 ---
 
@@ -284,7 +430,7 @@ All five trained on the same 60,000-row preprocessed training subset and evaluat
 
 ## 🖼️ Figure Gallery
 
-Every figure both notebooks produce is written to [`assets/figures/`](assets/figures) by a `plt.savefig` call in the cell that draws it, so a **Run All** regenerates the whole gallery. The headline figures are below; all **27** are listed at the end of this section.
+All **35** figures live in [`assets/figures/`](assets/figures). The regression notebook and Part A of the classification notebook write theirs with a `plt.savefig` call in the cell that draws them, so **Run All** regenerates them. The clustering notebook only displays its plots, so its 8 figures were extracted byte for byte from the notebook's stored outputs by [`models/export_clustering.py`](models/export_clustering.py). Classification Part B's figures (confusion matrices, ROC curves, Random Forest importances, the 10-model comparison) are shown inside `classification.ipynb` only.
 
 ### 🔋 Regression — EDA *(`regression.ipynb` §3)*
 
@@ -360,8 +506,35 @@ The three **C4 rubric deliverables**. Feature importance comes from the Decision
 </table>
 </div>
 
+### 🔌 Clustering *(`clustering.ipynb`)*
+
+<div align="center">
+<table>
+<tr>
+<td width="33%" align="center"><b>Feature distributions</b></td>
+<td width="33%" align="center"><b>K-Means elbow curve</b></td>
+<td width="33%" align="center"><b>Ward dendrogram</b></td>
+</tr>
+<tr>
+<td><img src="assets/figures/clustering/eda/01_feature_distributions.png" alt="Histograms of connection time, charging duration and energy delivered" width="100%"></td>
+<td><img src="assets/figures/clustering/models/01_kmeans_elbow_curve.png" alt="K-Means inertia against the number of clusters, K = 2 to 10" width="100%"></td>
+<td><img src="assets/figures/clustering/models/03_ward_dendrogram.png" alt="Ward-linkage dendrogram of up to 500 sessions" width="100%"></td>
+</tr>
+<tr>
+<td width="33%" align="center"><b>K-Means — PCA 2D</b></td>
+<td width="33%" align="center"><b>Agglomerative — PCA 2D</b></td>
+<td width="33%" align="center"><b>K-Means — t-SNE</b></td>
+</tr>
+<tr>
+<td><img src="assets/figures/clustering/models/04_kmeans_pca.png" alt="K-Means clusters on the first two principal components" width="100%"></td>
+<td><img src="assets/figures/clustering/models/05_agglomerative_pca.png" alt="Agglomerative clusters on the first two principal components" width="100%"></td>
+<td><img src="assets/figures/clustering/models/06_kmeans_tsne.png" alt="K-Means clusters in a t-SNE projection of 1,000 sessions" width="100%"></td>
+</tr>
+</table>
+</div>
+
 <details>
-<summary><b>🗂️ The remaining 13 figures</b></summary>
+<summary><b>🗂️ The remaining 15 figures</b></summary>
 
 <br>
 
@@ -372,7 +545,7 @@ The three **C4 rubric deliverables**. Feature importance comes from the Decision
 <tr>
 <td width="25%" align="center"><b>Logistic Regression</b></td>
 <td width="25%" align="center"><b>KNN (k=3)</b></td>
-<td width="25%" align="center"><b>Gaussian Naive Bayes</b></td>
+<td width="25%" align="center"><b>Gaussian Naive Bayes</b><br><sub>earlier run — the current cell no longer saves it</sub></td>
 <td width="25%" align="center"><b>SVM (rbf, C=1.0)</b></td>
 </tr>
 <tr>
@@ -380,6 +553,21 @@ The three **C4 rubric deliverables**. Feature importance comes from the Decision
 <td><img src="assets/figures/classification/models/03_knn_confusion_matrix.png" alt="KNN confusion matrix" width="100%"></td>
 <td><img src="assets/figures/classification/models/04_naive_bayes_confusion_matrix.png" alt="Gaussian Naive Bayes confusion matrix" width="100%"></td>
 <td><img src="assets/figures/classification/models/07_svm_confusion_matrix.png" alt="Support Vector Machine confusion matrix" width="100%"></td>
+</tr>
+</table>
+</div>
+
+**Clustering — correlation heatmap and linkage comparison**
+
+<div align="center">
+<table>
+<tr>
+<td width="40%" align="center"><b>Correlation heatmap</b></td>
+<td width="60%" align="center"><b>Single · complete · average linkage</b></td>
+</tr>
+<tr>
+<td><img src="assets/figures/clustering/eda/02_correlation_heatmap.png" alt="Correlation heatmap of the three charging features" width="100%"></td>
+<td><img src="assets/figures/clustering/models/02_linkage_comparison_dendrograms.png" alt="Dendrograms for single, complete and average linkage" width="100%"></td>
 </tr>
 </table>
 </div>
@@ -431,34 +619,45 @@ The three **C4 rubric deliverables**. Feature importance comes from the Decision
 ChargeIQ/
 ├── README.md                    ← you are here
 ├── PROGRESS.md                  ← live status board vs. the rubric
-├── requirements.txt             ← pinned Python dependencies
+├── requirements.txt             ← pinned dependencies for the notebooks
+├── .streamlit/config.toml       ← the app's theme (Streamlit reads it from the repo root)
 │
 ├── data/                        ← datasets (downloaded, not committed)
-│   ├── README.md                   OneDrive download link
+│   ├── README.md                   sources, layout, column descriptions
 │   ├── Regression_Dataset/      ← 🔋 regression track only
 │   │   ├── metadata.csv            7,565 × 10 — indexes every raw cycle
 │   │   ├── data/                   ~7.5k per-cycle V/I/T curve CSVs
 │   │   └── extra_infos/            NASA per-battery-group README files
-│   └── Classification_Dataset/  ← 🚗 classification track only
-│       └── Electric_Vehicle_Population_Data.csv    294,193 × 16
+│   ├── Classification_Dataset/  ← 🚗 classification track only
+│   │   └── Electric_Vehicle_Population_Data.csv    294,193 × 16
+│   └── Clustering_Dataset/      ← 🔌 clustering track only
+│       └── SYNTHETIC_EV_DATA.csv   1,965,239 × 4
 │
 ├── notebooks/
 │   ├── regression.ipynb         ✅ SOH — sections 0 → 15, all 10 algorithms
-│   ├── classification.ipynb     ✅ Electric Vehicle Type — Part A, 5 algorithms
-│   └── clustering.ipynb         ⬜ not created yet — charging archetypes (Review 2)
+│   ├── classification.ipynb     ✅ Electric Vehicle Type — Part A + Part B, 10 algorithms
+│   ├── clustering.ipynb         ✅ charging sessions — K-Means + Agglomerative
+│   ├── EV_clustering_sample_with_labels.csv    the 100,000-session sample, with labels
+│   └── EV_clustering_evaluation_metrics.csv    both algorithms' metrics
 │
-├── assets/figures/              ← every figure, written by the notebooks
-│   ├── regression/
-│   │   ├── eda/                    3 — distributions, heatmap, fade & scatter
-│   │   └── models/                 3 — feature importance, pred-vs-actual, residual
-│   └── classification/
-│       ├── eda/                   13 — distributions, target, heatmap, scatters,
-│       │                               8 top-10 category charts
-│       └── models/                 8 — 5 confusion matrices, k-sweep,
-│                                       tree diagram, model comparison
+├── models/                      ← the three trained models, rebuilt from the notebooks
+│   ├── export_classification.py · export_regression.py · export_clustering.py
+│   └── <track>_model.joblib + <track>_metadata.json, one pair per track
 │
-├── models/                      ← serialised models (.pkl via joblib)
-└── app/                         ← GUI / deployment (bonus track)
+├── app/                         ← 🖥️ the live Streamlit app (bonus track)
+│   ├── streamlit_app.py            entry point
+│   ├── chapters/                   the 11 chapters of the story
+│   ├── core/                       inference, one module per track — no Streamlit
+│   ├── content/                    the notebooks' words, each quote cited by cell
+│   ├── ui/                         navigation, components, styling
+│   ├── tests/                      259 automated tests
+│   ├── requirements.txt            the app's exact pins (used by Streamlit Cloud)
+│   └── DEPLOYMENT.md               how to deploy, verify and troubleshoot
+│
+└── assets/figures/              ← 35 figures
+    ├── regression/              eda/ 3 · models/ 3
+    ├── classification/          eda/ 13 · models/ 8
+    └── clustering/              eda/ 2 · models/ 6
 ```
 
 ---
@@ -483,7 +682,7 @@ python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-**4 · Download the datasets** using the OneDrive link in [`data/README.md`](data/README.md), into the layout shown above. Both datasets are gitignored and must be fetched separately.
+**4 · Download the datasets** using the links in [`data/README.md`](data/README.md), into the layout shown above. All three are gitignored and must be fetched separately.
 
 **5 · (Optional) Point the regression notebook at a different folder.** It defaults to the repo-relative path and needs no edits if you followed step 4. To use a dataset stored elsewhere, set an environment variable instead of editing any cell:
 
@@ -494,16 +693,31 @@ export CHARGEIQ_REGRESSION_DATA="/path/to/your/cleaned_dataset"
 **6 · Launch the notebooks**
 
 ```bash
-jupyter lab notebooks/regression.ipynb notebooks/classification.ipynb
+jupyter lab notebooks/regression.ipynb notebooks/classification.ipynb notebooks/clustering.ipynb
 ```
 
-Then **Run All** on each. Both are deterministic (`random_state=42`) and run top to bottom without manual steps.
+Then **Run All** on each. All three are deterministic (`random_state=42`).
+
+> [!WARNING]
+> `clustering.ipynb` currently reads its dataset from a fixed Windows path (`D:\5th Sem\ML\SYNTHETIC_EV_DATA.csv`, cell 5). Change `CSV_PATH` to `../data/Clustering_Dataset/SYNTHETIC_EV_DATA.csv` before running it on another machine.
+
+**7 · Run the app locally** *(optional — it is also [live](https://chargeiq.streamlit.app))*
+
+```bash
+pip install -r app/requirements.txt
+streamlit run app/streamlit_app.py
+python -m pytest app/tests -q        # the app's 259 tests
+```
+
+The app needs none of the datasets: it reads only `models/` and `assets/figures/`. To rebuild a model from its notebook, run `python models/export_<track>.py` — it refuses to write unless the replay matches the notebook (the regression export needs the local NASA data).
 
 ---
 
 ## 📐 Rubric Coverage Map
 
-Where each Review-1 rubric criterion lives. Full mark-by-mark tracking is in **[PROGRESS.md](PROGRESS.md)**.
+Where each rubric criterion lives. Full mark-by-mark tracking is in **[PROGRESS.md](PROGRESS.md)**.
+
+**Review 1**
 
 | § | Criterion | Where | Status |
 |:-:|:--|:--|:-:|
@@ -520,7 +734,20 @@ Where each Review-1 rubric criterion lives. Full mark-by-mark tracking is in **[
 | D1 | Classification Part A — 5 algorithms | `classification.ipynb` §9–13 | ✅ 5/5 |
 | D2 | Part A evaluation + comparison table | `classification.ipynb` §14 | ✅ |
 
-**Not yet started** *(Review 2)*: Classification Part B, ROC-AUC, the full clustering track, and the optional GUI.
+**Review 2**
+
+| § | Criterion | Where | Status |
+|:-:|:--|:--|:-:|
+| A1 | Classification Part B — 5 algorithms | `classification.ipynb` §6–10 — Random Forest, AdaBoost, Gradient Boosting, Bagging, MLP | ✅ 5/5 |
+| A2 | Full 10-algorithm comparison, incl. ROC-AUC | `classification.ipynb` cell 81 — see [All 10 classifiers compared](#classification-comparison) | ✅ |
+| A3 | Final model selection + tuning | Tuning: RF and AdaBoost grids, Decision Tree depth sweep; 5-fold CV (cell 84); selection (cells 86–87) | ✅ |
+| B1 | Clustering — both algorithms | `clustering.ipynb` — K-Means (cell 15), Agglomerative (cell 21) | ✅ 2/2 |
+| B2 | Silhouette · DB · CH + Elbow + Dendrogram | Metrics (cells 23, 33), elbow (cell 13), dendrograms (cells 17, 19) | ✅ |
+| B3 | PCA-2D per algorithm + t-SNE | Cells 25, 27 (PCA) and 29 (t-SNE) | ✅ |
+| C1 | Code quality | All notebooks deterministic; the app is tested (259 tests) | 🚧 `clustering.ipynb` dataset path |
+| C2 | README & documentation | This README, [PROGRESS.md](PROGRESS.md), folder READMEs, [`app/DEPLOYMENT.md`](app/DEPLOYMENT.md) | ✅ |
+| C3 | GitHub history + `requirements.txt` | Granular commit history; pinned [`requirements.txt`](requirements.txt) and [`app/requirements.txt`](app/requirements.txt) | ✅ |
+| ⭐ | Bonus — GUI + public deployment | [chargeiq.streamlit.app](https://chargeiq.streamlit.app) — see [The Live App](#the-live-app) | ✅ +2 |
 
 ---
 
@@ -528,17 +755,22 @@ Where each Review-1 rubric criterion lives. Full mark-by-mark tracking is in **[
 
 | Member | Roll No. | GitHub | Track focus |
 |:--|:--|:--|:--|
-| `Rutav Desai` | `CB.SC.U4CSE24664` | [@Roots26Hz](https://github.com/Roots26Hz) | `Regression (1-5)` |
-| `Chikeersha Vedium` | `CB.SC.U4CSE24615` | [@chikeersha24-bot](https://github.com/chikeersha24-bot) | `Classification Part A` |
-| `Harshitha Nityanand` | `CB.SC.U4CSE24624` | [@Harshi06-code](https://github.com/Harshi06-code) | `Regression (6-10)` |
+| `Rutav Desai` | `CB.SC.U4CSE24664` | [@Roots26Hz](https://github.com/Roots26Hz) | `Regression (1-5)` · `Live app` |
+| `Chikeersha Vedium` | `CB.SC.U4CSE24615` | [@chikeersha24-bot](https://github.com/chikeersha24-bot) | `Classification Part A + Part B` |
+| `Harshitha Nityanand` | `CB.SC.U4CSE24624` | [@Harshi06-code](https://github.com/Harshi06-code) | `Regression (6-10)` · `Clustering` |
 
 ---
 
 ## 🤖 AI Assistance Disclosure
 
-In line with §7 of the course guidelines: **Claude (Anthropic, via Claude Code)** was used for **code scaffolding and documentation** — boilerplate structure, repetitive model-evaluation blocks, notebook reorganisation, and the formatting of this README and `PROGRESS.md`.
+In line with §7 of the course guidelines: **Claude (Anthropic, via Claude Code)** was used for **code scaffolding and documentation**:
 
-All **dataset analysis, feature-engineering decisions, methodological choices** (including the group-wise battery split, the early-window feature design, the SOH target definition, and the CAFV target-proxy exclusion) **and every written interpretation** are the team's own work.
+- **Notebooks** — boilerplate structure, repetitive model-evaluation blocks and notebook reorganisation.
+- **The live app** — the Streamlit code in `app/`, the export scripts in `models/` that rebuild each notebook's model and check it against the notebook's stored results, the automated tests, and the deployment configuration.
+- **Documentation** — the formatting of this README, `PROGRESS.md`, the folder READMEs and `app/DEPLOYMENT.md`.
+- **Fact-checking** — numbers quoted in the app and in this README were verified against the notebooks, the saved models and the datasets. For the app's explanatory notes, Claude assembled verified facts and suggested draft wording, which the team reviewed and edited.
+
+All **dataset analysis, feature-engineering decisions and methodological choices** — including the group-wise battery split, the early-window feature design, the SOH target definition, the CAFV target-proxy exclusion, and the choice and evaluation of every model in all three tracks — are the team's own work, as are the notebooks' written interpretations.
 
 ---
 
@@ -550,6 +782,6 @@ B.Tech. Computer Science and Engineering, III Year · Academic Year 2026–27
 
 Amrita Vishwa Vidyapeetham
 
-<sub>⚡ Built with scikit-learn, Pandas and a lot of battery-cycle CSVs.</sub>
+<sub>⚡ Built with scikit-learn, Pandas, Streamlit and a lot of battery-cycle CSVs · <a href="https://chargeiq.streamlit.app">chargeiq.streamlit.app</a></sub>
 
 </div>
