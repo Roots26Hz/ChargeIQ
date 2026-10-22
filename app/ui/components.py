@@ -11,6 +11,7 @@ import streamlit as st
 from . import navigation
 
 STYLESHEET = Path(__file__).with_name("style.css")
+FIGURES_DIR = Path(__file__).resolve().parents[2] / "assets" / "figures"
 
 
 def inject_css() -> None:
@@ -40,6 +41,24 @@ def source_note(notebook: str, cells: Iterable[int] = (), note: str | None = Non
     st.caption("Source: " + " · ".join(parts) + (f" — {note}" if note else ""))
 
 
+def team_quote(quote) -> None:
+    """A verbatim excerpt of the team's notebook markdown, with its cell reference.
+
+    Takes a content.Quote; app/tests/test_content.py proves the text is verbatim.
+    """
+    st.markdown("\n".join(f"> {line}" for line in quote.text.splitlines()))
+    st.caption(f"The team, in `notebooks/{quote.notebook}` · cell {quote.cell}")
+
+
+def figure(relative_path: str, caption: str, notebook: str, cell: int) -> None:
+    """A figure exported from a notebook, from assets/figures/, cited by its source cell."""
+    path = FIGURES_DIR / relative_path
+    if not path.is_file():
+        raise FileNotFoundError(f"figure not found: assets/figures/{relative_path}")
+    st.image(str(path), caption=caption, width="stretch")
+    source_note(notebook, [cell])
+
+
 def team_todo(text: str) -> None:
     """A visible marker for interpretive copy the team must write in its own words.
 
@@ -58,10 +77,18 @@ def placeholder(milestone: str, summary: str) -> None:
     )
 
 
+def chapter_link(key: str, label: str | None = None, icon: str = ":material/arrow_forward:") -> bool:
+    """Link to a chapter if it is currently shown in the sidebar. Returns whether a link was drawn."""
+    if not navigation.is_visible(key):
+        return False
+    target = navigation.chapter(key)
+    st.page_link(target.path, label=label or target.title, icon=icon)
+    return True
+
+
 def next_chapter(key: str, label: str | None = None) -> None:
     """Link to the next chapter — only if that chapter is currently shown in the sidebar."""
     if not navigation.is_visible(key):
         return
-    target = navigation.chapter(key)
     st.divider()
-    st.page_link(target.path, label=label or f"Next: {target.title}", icon=":material/arrow_forward:")
+    chapter_link(key, label or f"Next: {navigation.chapter(key).title}")

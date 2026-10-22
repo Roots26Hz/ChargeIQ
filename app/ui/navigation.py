@@ -34,13 +34,21 @@ class Chapter:
 
 DEFAULT_KEY = "home"
 
+VEHICLE = "Vehicle · classification"
+BATTERY = "Battery · regression"
+DRIVER = "Driver · clustering"
+
 CHAPTERS: tuple[Chapter, ...] = (
-    Chapter("home", "ChargeIQ", "The problem", ":material/bolt:", ready=False),
-    Chapter("vehicle_data", "Vehicle · classification", "Meet the data", ":material/table_chart:", ready=False),
-    Chapter("vehicle_model", "Vehicle · classification", "How the model thinks", ":material/account_tree:", ready=False),
-    Chapter("vehicle_predict", "Vehicle · classification", "Make a prediction", ":material/directions_car:", ready=False),
-    Chapter("battery", "Battery · regression", "Battery health", ":material/battery_charging_full:", ready=False),
-    Chapter("charging", "Driver · clustering", "Charging archetypes", ":material/ev_station:", ready=False),
+    Chapter("home", "ChargeIQ", "The problem", ":material/bolt:", ready=True),
+    Chapter("vehicle_data", VEHICLE, "Meet the data", ":material/table_chart:", ready=True),
+    Chapter("vehicle_model", VEHICLE, "How the model thinks", ":material/account_tree:", ready=True),
+    Chapter("vehicle_predict", VEHICLE, "Make a prediction", ":material/directions_car:", ready=False),
+    Chapter("battery_data", BATTERY, "Meet the data", ":material/table_chart:", ready=False),
+    Chapter("battery_model", BATTERY, "How the model learns", ":material/insights:", ready=False),
+    Chapter("battery_predict", BATTERY, "Estimate battery health", ":material/battery_charging_full:", ready=False),
+    Chapter("charging_data", DRIVER, "Meet the data", ":material/table_chart:", ready=False),
+    Chapter("charging_model", DRIVER, "How the model groups", ":material/hub:", ready=False),
+    Chapter("charging_predict", DRIVER, "Place a charging session", ":material/ev_station:", ready=False),
     Chapter("conclusion", "Wrap-up", "Conclusion", ":material/flag:", ready=False),
 )
 

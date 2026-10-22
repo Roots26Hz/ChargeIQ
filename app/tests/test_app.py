@@ -3,11 +3,14 @@
 from __future__ import annotations
 
 import re
+import subprocess
 
 import pytest
 from streamlit.testing.v1 import AppTest
 
 from conftest import APP_DIR, REPO_ROOT
+from content import home
+from core import classification as clf
 from ui import navigation
 
 ENTRYPOINT = str(APP_DIR / "streamlit_app.py")
@@ -60,3 +63,73 @@ def test_app_requirements_pin_the_versions_the_model_was_exported_with(meta):
     for package in ("scikit-learn", "numpy", "pandas", "joblib"):
         assert pins.get(package) == meta["environment"][package], package
     assert "streamlit" in pins
+
+
+# ---------------------------------------------------------------- finished chapters' content
+
+
+def _render(app, key: str):
+    app.switch_page(f"chapters/{key}.py").run()
+    assert not app.exception
+    return app
+
+
+def _page_text(app) -> str:
+    parts = [m.value for m in app.markdown] + [c.value for c in app.caption]
+    parts += [f"{m.label} {m.value}" for m in app.metric] + [c.value for c in app.code]
+    return "\n".join(parts)
+
+
+@pytest.mark.parametrize("chapter", [ch for ch in navigation.CHAPTERS if ch.ready], ids=lambda ch: ch.key)
+def test_finished_chapters_have_no_placeholder(app, chapter):
+    assert "ciq-placeholder" not in _page_text(_render(app, chapter.key))
+
+
+@pytest.mark.parametrize("chapter", [ch for ch in navigation.CHAPTERS if not ch.ready], ids=lambda ch: ch.key)
+def test_unfinished_chapters_say_so(app, chapter):
+    assert "ciq-placeholder" in _page_text(_render(app, chapter.key))
+
+
+def test_home_quotes_each_tracks_objective(app):
+    text = _page_text(app)
+    for quote in home.QUOTES:
+        assert quote.text in text
+        assert f"cell {quote.cell}" in text
+
+
+def test_data_chapter_shows_the_dataset_numbers(app, meta):
+    text = _page_text(_render(app, "vehicle_data"))
+    assert f"{meta['dataset']['rows']:,}" in text
+    for count in meta["dataset"]["class_counts"].values():
+        assert f"{count:,}" in text
+    assert "235,354" in text and "60,000" in text and f"{meta['dataset']['test_rows']:,}" in text
+
+
+def test_model_chapter_shows_the_real_tree_and_results(app, meta):
+    root = clf.tree_rules()
+    text = _page_text(_render(app, "vehicle_model"))
+    assert root.left_condition in text
+    assert f"{root.left.samples:,} of the {root.samples:,} training vehicles" in text
+    assert "5 of 58,839 test vehicles were misclassified" in text
+    assert "6 of 13" in text
+    for leaf in root.leaves():  # the indented outline lists every leaf
+        assert f"({leaf.samples:,} vehicles:" in text
+
+
+FIGURE_CALL = re.compile(r'ui\.figure\(\s*"([^"]+)"')
+
+
+def test_every_figure_shown_is_committed_to_the_repository():
+    """The deployed app serves figures from git, so each one must be tracked, not just present locally."""
+    tracked = set(subprocess.run(["git", "ls-files", "assets/figures"], cwd=REPO_ROOT,
+                                 capture_output=True, text=True, check=True).stdout.split())
+    shown = [m for path in (APP_DIR / "chapters").glob("*.py") for m in FIGURE_CALL.findall(path.read_text())]
+    assert shown, "expected at least one figure"
+    for figure in shown:
+        assert f"assets/figures/{figure}" in tracked, figure
+
+
+def test_every_track_has_a_data_model_and_predict_chapter():
+    keys = {ch.key for ch in navigation.CHAPTERS}
+    for track in ("vehicle", "battery", "charging"):
+        assert {f"{track}_data", f"{track}_model", f"{track}_predict"} <= keys

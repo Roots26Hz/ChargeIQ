@@ -188,18 +188,40 @@ def _encoded_columns(model) -> tuple[tuple[str, str | None, int | None], ...]:
 
 
 def _fmt(number: float) -> str:
-    return f"{number:,.2f}".rstrip("0").rstrip(".")
+    """Threshold for display: no thousands separator, so years read as years (2020.5, not 2,020.5)."""
+    return f"{number:.2f}".rstrip("0").rstrip(".")
+
+
+def _split(model, node: int, left: bool) -> tuple[str, str]:
+    """(original column, readable condition) for one branch of a split node.
+
+    The single source of wording for every rule shown in the app, so the full tree
+    and an individual decision path can never describe the same split differently.
+    """
+    preprocess = model.named_steps["preprocess"]
+    structure = model.named_steps["model"].tree_
+    column, category, numeric_index = _encoded_columns(model)[structure.feature[node]]
+    if category is None:  # scaled numeric: convert the threshold back to original units
+        scaler = preprocess.named_transformers_["num"]
+        raw = structure.threshold[node] * scaler.scale_[numeric_index] + scaler.mean_[numeric_index]
+        return column, f"{column} {'≤' if left else '>'} {_fmt(raw)}"
+    return column, f"{column} {'is not' if left else 'is'} {category}"  # one-hot: threshold is 0.5
+
+
+def _class_counts(model, node: int) -> dict[str, int]:
+    """How the training rows that reached a node were labelled."""
+    tree = model.named_steps["model"]
+    samples = int(tree.tree_.n_node_samples[node])
+    value = tree.tree_.value[node][0]
+    fractions = value / value.sum()  # recent scikit-learn stores fractions, older stores counts
+    return {str(c): int(round(f * samples)) for c, f in zip(tree.classes_, fractions)}
 
 
 def decision_path(row: pd.DataFrame, model=None) -> tuple[tuple[PathStep, ...], int]:
     """Return the split conditions this row satisfied, and the leaf it reached."""
     model = model if model is not None else load_model(TRACK)
-    preprocess = model.named_steps["preprocess"]
     tree = model.named_steps["model"]
-    scaler = preprocess.named_transformers_["num"]
-    columns = _encoded_columns(model)
-
-    encoded = preprocess.transform(row)
+    encoded = model.named_steps["preprocess"].transform(row)
     nodes = tree.decision_path(encoded).indices
     leaf = int(tree.apply(encoded)[0])
     structure = tree.tree_
@@ -208,17 +230,8 @@ def decision_path(row: pd.DataFrame, model=None) -> tuple[tuple[PathStep, ...], 
     for node in nodes:
         if node == leaf:
             break
-        feature_index = structure.feature[node]
-        threshold = structure.threshold[node]
-        went_left = encoded[0, feature_index] <= threshold  # the tree's own comparison, in encoded space
-        column, category, numeric_index = columns[feature_index]
-
-        if category is None:
-            raw = threshold * scaler.scale_[numeric_index] + scaler.mean_[numeric_index]
-            condition = f"{column} {'≤' if went_left else '>'} {_fmt(raw)}"
-        else:
-            condition = f"{column} {'is not' if went_left else 'is'} {category}"
-
+        went_left = encoded[0, structure.feature[node]] <= structure.threshold[node]  # the tree's own test
+        column, condition = _split(model, node, went_left)
         value = row.iloc[0][column]
         value = value.item() if hasattr(value, "item") else value  # numpy scalar -> plain Python
         steps.append(PathStep(column, condition, value, int(structure.n_node_samples[node])))
@@ -234,13 +247,92 @@ def predict(inputs: Mapping[str, Any], model=None, meta: Mapping | None = None) 
     label = str(model.predict(row)[0])
     path, leaf = decision_path(row, model)
 
-    tree = model.named_steps["model"]
-    leaf_samples = int(tree.tree_.n_node_samples[leaf])
-    value = tree.tree_.value[leaf][0]
-    fractions = value / value.sum()  # recent scikit-learn stores fractions, older stores counts
-    counts = {str(c): int(round(f * leaf_samples)) for c, f in zip(tree.classes_, fractions)}
-
-    if label != str(tree.classes_[fractions.argmax()]):
+    leaf_samples = int(model.named_steps["model"].tree_.n_node_samples[leaf])
+    counts = _class_counts(model, leaf)
+    if label != max(counts, key=counts.get):
         raise RuntimeError("decision path and pipeline prediction disagree")  # should be impossible
 
     return Prediction(label, short_label(label), leaf, leaf_samples, counts, path)
+
+
+# ---------------------------------------------------------------- the whole tree
+
+
+@dataclass(frozen=True)
+class TreeNode:
+    """One node of the fitted tree, in original units. Leaves have no children."""
+
+    node_id: int
+    samples: int                        # training rows that reached this node
+    class_counts: dict[str, int]
+    left_condition: str | None = None   # condition for taking the left branch
+    right_condition: str | None = None
+    left: "TreeNode | None" = None
+    right: "TreeNode | None" = None
+
+    @property
+    def is_leaf(self) -> bool:
+        return self.left is None
+
+    @property
+    def prediction(self) -> str:
+        return max(self.class_counts, key=self.class_counts.get)
+
+    def leaves(self) -> list["TreeNode"]:
+        return [self] if self.is_leaf else self.left.leaves() + self.right.leaves()
+
+    def rules(self, conditions: tuple[str, ...] = ()) -> list[tuple[tuple[str, ...], "TreeNode"]]:
+        """Every leaf with the full chain of conditions that leads to it, left to right."""
+        if self.is_leaf:
+            return [(conditions, self)]
+        return (self.left.rules(conditions + (self.left_condition,))
+                + self.right.rules(conditions + (self.right_condition,)))
+
+
+def tree_rules(model=None) -> TreeNode:
+    """The complete fitted decision tree as nested, human-readable rules."""
+    model = model if model is not None else load_model(TRACK)
+    structure = model.named_steps["model"].tree_
+
+    def build(node: int) -> TreeNode:
+        samples, counts = int(structure.n_node_samples[node]), _class_counts(model, node)
+        left, right = structure.children_left[node], structure.children_right[node]
+        if left == -1:
+            return TreeNode(node, samples, counts)
+        return TreeNode(node, samples, counts,
+                        _split(model, node, True)[1], _split(model, node, False)[1],
+                        build(int(left)), build(int(right)))
+
+    return build(0)
+
+
+def readable_feature(encoded_index: int, model=None) -> str:
+    """'Electric Range' for a numeric column, 'Make = BMW' for a one-hot column."""
+    model = model if model is not None else load_model(TRACK)
+    column, category, _ = _encoded_columns(model)[encoded_index]
+    return column if category is None else f"{column} = {category}"
+
+
+def consulted_features(model=None, meta: Mapping | None = None) -> list[str]:
+    """Original input columns that appear in at least one split, in model column order.
+
+    Any other input can never change this model's prediction.
+    """
+    model = model if model is not None else load_model(TRACK)
+    meta = meta or load_metadata(TRACK)
+    structure = model.named_steps["model"].tree_
+    columns = _encoded_columns(model)
+    used = {columns[f][0] for f in structure.feature if f >= 0}
+    return [c for c in meta["feature_order"] if c in used]
+
+
+def feature_importances(model=None) -> list[tuple[str, float]]:
+    """Non-zero impurity-based importances, largest first.
+
+    These are global — they summarise the whole tree, not any single prediction.
+    """
+    model = model if model is not None else load_model(TRACK)
+    importances = model.named_steps["model"].feature_importances_
+    ranked = sorted(((readable_feature(i, model), float(v)) for i, v in enumerate(importances) if v > 0),
+                    key=lambda pair: -pair[1])
+    return ranked

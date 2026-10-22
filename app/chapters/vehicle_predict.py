@@ -9,9 +9,9 @@ ui.chapter_header(
 )
 
 ui.placeholder(
-    "Milestone 3",
+    "Milestone 4",
     "The input form, the predicted type, the exact decision path the input followed, and how many "
     "training vehicles reached the same rule.",
 )
 
-ui.next_chapter("battery")
+ui.next_chapter("battery_data")

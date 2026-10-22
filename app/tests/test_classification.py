@@ -258,3 +258,69 @@ def test_scikit_learn_version_mismatch_is_refused(monkeypatch):
             artifacts.load_model(clf.TRACK)
     finally:
         artifacts.load_model.cache_clear()
+
+
+# ---------------------------------------------------------------- the whole tree (Chapter 3)
+
+
+def test_tree_rules_mirror_the_fitted_tree(model, meta):
+    root = clf.tree_rules()
+    leaves = root.leaves()
+    assert root.samples == meta["dataset"]["train_rows"]
+    assert len(leaves) == meta["final_model"]["leaves"]
+    assert all(sum(leaf.class_counts.values()) == leaf.samples for leaf in leaves)
+    assert sum(leaf.samples for leaf in leaves) == root.samples
+
+
+def test_root_rule_is_the_electric_range_split():
+    root = clf.tree_rules()
+    assert (root.left_condition, root.right_condition) == ("Electric Range ≤ 0.5", "Electric Range > 0.5")
+
+
+def test_every_leaf_is_pure():
+    assert all(min(leaf.class_counts.values()) == 0 for leaf in clf.tree_rules().leaves())
+
+
+@pytest.mark.parametrize("inputs_fixture", ["bev_inputs", "phev_inputs"])
+def test_rule_tree_and_decision_path_describe_the_same_model(request, inputs_fixture):
+    """Following a prediction's path through the rendered rules must reach its leaf."""
+    prediction = clf.predict(request.getfixturevalue(inputs_fixture))
+    node = clf.tree_rules()
+    for step in prediction.path:
+        assert step.condition in (node.left_condition, node.right_condition)
+        node = node.left if step.condition == node.left_condition else node.right
+    assert node.is_leaf
+    assert node.node_id == prediction.leaf_id
+    assert node.prediction == prediction.label
+
+
+def test_thresholds_are_shown_without_thousands_separators():
+    def conditions(node):
+        if node.is_leaf:
+            return []
+        return [node.left_condition, node.right_condition] + conditions(node.left) + conditions(node.right)
+    assert all("," not in c for c in conditions(clf.tree_rules()))
+    assert "Model Year ≤ 2020.5" in conditions(clf.tree_rules())
+
+
+def test_consulted_features_are_the_six_split_columns():
+    assert clf.consulted_features() == [
+        "County", "Model Year", "Make", "Model", "Electric Range", "Vehicle Location",
+    ]
+
+
+def test_feature_importances_are_readable_ranked_and_complete(model):
+    ranked = clf.feature_importances()
+    assert ranked[0][0] == "Electric Range"
+    assert [v for _, v in ranked] == sorted((v for _, v in ranked), reverse=True)
+    assert math.isclose(sum(v for _, v in ranked), 1.0)
+    assert len(ranked) == int((model.named_steps["model"].feature_importances_ > 0).sum())
+    assert ("Make = BMW" in dict(ranked))
+
+
+@pytest.mark.parametrize("inputs_fixture", ["bev_inputs", "phev_inputs"])
+def test_each_leaf_rule_is_the_full_path_to_that_leaf(request, inputs_fixture):
+    prediction = clf.predict(request.getfixturevalue(inputs_fixture))
+    rules = {leaf.node_id: conditions for conditions, leaf in clf.tree_rules().rules()}
+    assert len(rules) == len(clf.tree_rules().leaves())
+    assert rules[prediction.leaf_id] == tuple(step.condition for step in prediction.path)
