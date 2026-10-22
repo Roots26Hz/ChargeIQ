@@ -1,0 +1,16 @@
+# Dependencies for the deployed ChargeIQ app.
+#
+# Streamlit Community Cloud uses this file, not the repository-root requirements.txt,
+# because it sits beside the entrypoint (app/streamlit_app.py).
+#
+# Versions are exact on purpose: the model artifacts in models/ were exported with
+# them, and a pickled scikit-learn model is only guaranteed to load under the
+# version that wrote it. Deploy with Python 3.13 (Advanced settings) — Community
+# Cloud defaults to 3.12.
+
+streamlit==1.66.1
+scikit-learn==1.9.0
+numpy==2.2.1
+pandas==2.2.3
+scipy==1.17.1
+joblib==1.5.3

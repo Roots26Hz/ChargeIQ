@@ -1,0 +1,48 @@
+/*
+ * ChargeIQ — layout details the theme options in .streamlit/config.toml cannot express.
+ *
+ * Colours come from the theme. Anything set here is translucent or inherited,
+ * so it sits correctly on both the light and the dark palette.
+ */
+
+.ciq-kicker {
+  margin: 0 0 0.2rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+.ciq-lede {
+  max-width: 42rem;
+  margin: 0.2rem 0 1.4rem;
+  font-size: 1.12rem;
+  line-height: 1.6;
+  opacity: 0.86;
+}
+
+.ciq-todo {
+  margin: 0.5rem 0 1rem;
+  padding: 0.7rem 0.9rem;
+  border: 1.5px dashed rgba(255, 179, 0, 0.85);
+  border-radius: 0.6rem;
+  background: rgba(255, 179, 0, 0.08);
+  font-size: 0.95rem;
+}
+
+.ciq-todo b {
+  letter-spacing: 0.04em;
+}
+
+.ciq-placeholder {
+  margin: 0.5rem 0 1rem;
+  padding: 1.1rem 1.3rem;
+  border: 1px solid rgba(128, 128, 128, 0.35);
+  border-radius: 0.75rem;
+  background: rgba(128, 128, 128, 0.06);
+}
+
+.ciq-placeholder p:last-child {
+  margin-bottom: 0;
+}

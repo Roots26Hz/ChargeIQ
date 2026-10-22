@@ -1,0 +1,31 @@
+# ChargeIQ app configuration.
+#
+# Streamlit Community Cloud reads this file from the repository root, even though
+# the entrypoint is app/streamlit_app.py. Run the app locally from the repository
+# root too, so the same file is picked up:  streamlit run app/streamlit_app.py
+
+[theme]
+font = "Inter:https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap, sans-serif"
+headingFont = "'Space Grotesk':https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&display=swap, sans-serif"
+baseRadius = "0.6rem"
+
+# Both palettes are defined, so visitors can switch between light and dark
+# in the app's settings menu and the brand colours hold in either.
+[theme.light]
+primaryColor = "#2E7D32"
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#F2F6F3"
+textColor = "#16211B"
+
+[theme.dark]
+primaryColor = "#5DBB63"
+backgroundColor = "#0F1613"
+secondaryBackgroundColor = "#18231D"
+textColor = "#E7EFEA"
+
+[client]
+# Visitors see a clean toolbar without developer options.
+toolbarMode = "viewer"
+
+[browser]
+gatherUsageStats = false
