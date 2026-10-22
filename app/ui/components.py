@@ -59,6 +59,15 @@ def figure(relative_path: str, caption: str, notebook: str, cell: int) -> None:
     source_note(notebook, [cell])
 
 
+def team_note(title: str, text: str) -> None:
+    """Text the team wrote for the app itself, shown as a sticky note with its title."""
+    st.markdown(
+        f'<div class="ciq-note"><p class="ciq-note-kicker">From the team</p>'
+        f'<p class="ciq-note-title">{html.escape(title)}</p><p>{html.escape(text)}</p></div>',
+        unsafe_allow_html=True,
+    )
+
+
 def team_todo(text: str) -> None:
     """A visible marker for interpretive copy the team must write in its own words.
 

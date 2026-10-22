@@ -130,9 +130,19 @@ with rules_tab:
         f"({mix(root.left)}).\n"
         f"- **{root.right_condition}**: {root.right.samples:,} training vehicles ({mix(root.right)})."
     )
-    ui.team_todo(
-        "What the first rule, Electric Range ≤ 0.5, means for this dataset and for the model — "
-        "an interpretation in the team's own words."
+    ui.team_note(
+        "What a range of 0 really means",
+        "At first glance, an Electric Range of 0 seems to describe a vehicle that can’t travel on electric "
+        "power. In this dataset it means something else. Every one of the 192,477 registrations with a range "
+        "of 0 is a BEV, and each carries the CAFV label “Eligibility unknown as battery range has not been "
+        "researched.” The zero is therefore a placeholder for “never looked up”, not a measurement. The "
+        "effect is strongest in newer vehicles: from model year 2022 onwards, almost every BEV shows a range "
+        "of 0. The only PHEVs with a range of 0 are 13 Lamborghinis, and their zeros come from imputing "
+        "missing values with the median, which happens to be 0. So the tree’s first split is really asking "
+        "whether a vehicle’s range has been researched. That is the same information held in the CAFV "
+        "column, which we dropped because it leaked the target. The split brings that leakage back in "
+        "through another column, which is the kind of target-related feature our conclusion cautioned "
+        "against."
     )
 
     st.subheader(f"All {final['leaves']} rules", anchor=False)

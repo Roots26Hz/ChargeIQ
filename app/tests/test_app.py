@@ -217,3 +217,11 @@ def test_decision_path_shows_whole_numbers_without_a_decimal_point(app):
     page = _predict_page(app)
     page.button_group(key="vp_example").set_value("ranger").run()
     assert "this vehicle: `58` ·" in _page_text(page)
+
+
+@pytest.mark.parametrize("key, title", [("home", "Why these three questions?"),
+                                        ("vehicle_model", "What a range of 0 really means")])
+def test_team_notes_render_with_their_titles(app, key, title):
+    notes = [m.value for m in _render(app, key).markdown if 'class="ciq-note"' in m.value]
+    assert len(notes) == 1
+    assert f'<p class="ciq-note-title">{title}</p>' in notes[0]

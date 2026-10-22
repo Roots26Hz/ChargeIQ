@@ -14,8 +14,16 @@ ui.chapter_header(
     "Three independent machine-learning tracks, each answering a different question about electric vehicles.",
 )
 
-ui.team_todo(
-    "Why these three questions matter — the motivation behind ChargeIQ, in the team's own words."
+ui.team_note(
+    "Why these three questions?",
+    "Electric vehicles prompt three separate questions, each at a different level. At the level of the "
+    "vehicle, we ask whether a registration record contains enough information to tell a battery-electric "
+    "vehicle (BEV) from a plug-in hybrid (PHEV). At the level of the battery, we ask whether its State of "
+    "Health can be estimated from the readings recorded during a charge–discharge cycle. At the level of "
+    "the driver, we ask whether charging sessions follow recognisable patterns in their start times, "
+    "durations and energy delivered. ChargeIQ takes on one question per approach: classification for "
+    "vehicle type, regression for battery health, and clustering for charging behaviour, each trained on "
+    "its own dataset."
 )
 
 # (track, method, the track's first chapter, its objective in its notebook's words, icon)
