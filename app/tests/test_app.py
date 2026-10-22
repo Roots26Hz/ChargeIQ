@@ -23,6 +23,15 @@ def app():
     return at
 
 
+@pytest.fixture
+def full_app(monkeypatch):
+    """The app with unfinished chapters shown, as a developer sees it with SHOW_UNFINISHED = True."""
+    monkeypatch.setattr(navigation, "SHOW_UNFINISHED", True)
+    at = AppTest.from_file(ENTRYPOINT, default_timeout=60)
+    at.run()
+    return at
+
+
 def test_app_starts_without_error(app):
     assert not app.exception
 
@@ -32,10 +41,10 @@ def test_home_is_the_default_chapter(app):
 
 
 @pytest.mark.parametrize("chapter", navigation.CHAPTERS, ids=lambda ch: ch.key)
-def test_every_chapter_renders(app, chapter):
-    app.switch_page(f"chapters/{chapter.key}.py").run()
-    assert not app.exception
-    assert [t.value for t in app.title] == [chapter.title]
+def test_every_chapter_renders(full_app, chapter):
+    full_app.switch_page(f"chapters/{chapter.key}.py").run()
+    assert not full_app.exception
+    assert [t.value for t in full_app.title] == [chapter.title]
 
 
 def test_every_chapter_file_exists():
@@ -86,8 +95,8 @@ def test_finished_chapters_have_no_placeholder(app, chapter):
 
 
 @pytest.mark.parametrize("chapter", [ch for ch in navigation.CHAPTERS if not ch.ready], ids=lambda ch: ch.key)
-def test_unfinished_chapters_say_so(app, chapter):
-    assert "ciq-placeholder" in _page_text(_render(app, chapter.key))
+def test_unfinished_chapters_say_so(full_app, chapter):
+    assert "ciq-placeholder" in _page_text(_render(full_app, chapter.key))
 
 
 def test_home_quotes_each_tracks_objective(app):

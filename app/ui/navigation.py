@@ -9,10 +9,10 @@ import streamlit as st
 
 CHAPTERS_DIR = Path(__file__).resolve().parents[1] / "chapters"
 
-# While the app is being built, unfinished chapters stay visible so the whole
-# story arc can be reviewed. Set this to False before deploying, so visitors
-# only ever see finished chapters.
-SHOW_UNFINISHED = True
+# Visitors only ever see finished chapters. Set this to True locally to review
+# the whole story arc, unfinished chapters included; keep it False when deploying
+# (app/tests/test_deploy.py fails otherwise).
+SHOW_UNFINISHED = False
 
 
 @dataclass(frozen=True)

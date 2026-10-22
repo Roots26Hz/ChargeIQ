@@ -17,6 +17,7 @@ if str(APP_DIR) not in sys.path:  # make `core` and `ui` importable from every c
 
 import streamlit as st  # noqa: E402
 
+from core.artifacts import ArtifactError  # noqa: E402
 from ui import components, navigation  # noqa: E402
 
 st.set_page_config(
@@ -32,4 +33,7 @@ page = st.navigation(navigation.build(), position="sidebar")
 with st.sidebar:
     st.caption("23CSE301 · Machine Learning Capstone · AY 2026–27")
 
-page.run()
+try:
+    page.run()
+except ArtifactError as error:  # a missing or incompatible model: explain, don't show a traceback
+    components.artifact_error(error)

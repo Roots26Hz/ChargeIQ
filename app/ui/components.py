@@ -78,6 +78,17 @@ def team_todo(text: str) -> None:
                 unsafe_allow_html=True)
 
 
+def artifact_error(error: Exception) -> None:
+    """Shown instead of a chapter when a model artifact cannot be loaded."""
+    st.error(
+        "**This chapter can't load its model.** The exported model files in `models/` are missing, "
+        "unreadable, or were written by a different scikit-learn version than the one installed.",
+        icon=":material/error:",
+    )
+    st.code(str(error), language=None)
+    st.caption("If you maintain this app, see `app/DEPLOYMENT.md` → Troubleshooting.")
+
+
 def placeholder(milestone: str, summary: str) -> None:
     st.markdown(
         f'<div class="ciq-placeholder"><p class="ciq-kicker">Coming in {html.escape(milestone)}</p>'
