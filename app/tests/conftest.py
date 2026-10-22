@@ -13,6 +13,7 @@ REPO_ROOT = APP_DIR.parent
 sys.path.insert(0, str(APP_DIR))  # so `import core` works exactly as it does under Streamlit
 
 from core import classification as clf  # noqa: E402
+from core import regression as reg  # noqa: E402
 from core.artifacts import load_metadata, load_model  # noqa: E402
 
 
@@ -26,14 +27,17 @@ def model():
     return load_model(clf.TRACK)
 
 
-@pytest.fixture(scope="session")
-def export_module():
-    """The export script, imported as a module so tests can reuse its replay functions."""
-    path = REPO_ROOT / "models" / "export_classification.py"
-    spec = importlib.util.spec_from_file_location("export_classification", path)
+def _import_export_script(name: str):
+    """An export script, imported as a module so tests can reuse its replay functions."""
+    spec = importlib.util.spec_from_file_location(name, REPO_ROOT / "models" / f"{name}.py")
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module
+
+
+@pytest.fixture(scope="session")
+def export_module():
+    return _import_export_script("export_classification")
 
 
 @pytest.fixture(scope="session")
@@ -64,3 +68,29 @@ def bev_inputs():
 @pytest.fixture
 def phev_inputs():
     return vehicle("CHEVROLET", "VOLT", 2017, 53)
+
+
+# ---------------------------------------------------------------- regression
+
+
+@pytest.fixture(scope="session")
+def reg_meta():
+    return load_metadata(reg.TRACK)
+
+
+@pytest.fixture(scope="session")
+def reg_model():
+    return load_model(reg.TRACK)
+
+
+@pytest.fixture(scope="session")
+def reg_export_module():
+    return _import_export_script("export_regression")
+
+
+@pytest.fixture(scope="session")
+def reg_replay(reg_export_module):
+    """One replay of the regression notebook. Skipped where the raw NASA data is absent (it is not in git)."""
+    if not reg_export_module.DATA_PATH.is_file():
+        pytest.skip(f"regression data not found in {reg_export_module.DATASET_DIR} (local only)")
+    return reg_export_module.replay()
