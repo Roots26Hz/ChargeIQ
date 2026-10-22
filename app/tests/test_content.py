@@ -13,10 +13,10 @@ from functools import lru_cache
 import pytest
 
 from conftest import REPO_ROOT
-from content import Example, Fact, Quote, home, vehicle
+from content import Example, Fact, Quote, battery, home, vehicle
 from core import classification as clf
 
-MODULES = (home, vehicle)
+MODULES = (home, vehicle, battery)
 ALL_QUOTES = [q for m in MODULES for q in m.QUOTES]
 ALL_FACTS = [f for m in MODULES for f in m.FACTS]
 
@@ -101,3 +101,9 @@ def test_the_misclassified_example_is_one_of_the_models_test_errors(replay, mode
 
 def test_example_keys_are_unique():
     assert len({e.key for e in vehicle.EXAMPLES}) == len(vehicle.EXAMPLES)
+
+
+def test_battery_descriptions_quoted_from_the_data_readme():
+    readme = (REPO_ROOT / battery.README).read_text(encoding="utf-8")
+    for text in (battery.README_AMBIENT, battery.README_RESISTANCE):
+        assert text in readme

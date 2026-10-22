@@ -108,12 +108,17 @@ def test_every_third_party_import_is_pinned_in_the_app_requirements():
                 assert DISTRIBUTIONS[top] in pins, f"{DISTRIBUTIONS[top]} is not pinned"
 
 
+DATA_READERS = {"read_csv", "read_parquet", "read_excel", "read_json", "read_table", "read_feather",
+                "loadtxt", "genfromtxt", "open"}
+
+
 def test_the_app_never_reads_a_dataset():
-    """The datasets are large or local-only; everything the app shows comes from models/ and assets/."""
+    """The datasets are large or local-only; the app reads only models/ (via core.artifacts) and assets/."""
     for path in _app_sources():
-        source = path.read_text(encoding="utf-8")
-        for pattern in (".csv", "read_csv", "read_parquet", '/ "data"', '"data/'):  # citing data/README.md is fine
-            assert pattern not in source, f"{path.relative_to(REPO_ROOT)} mentions {pattern!r}"
+        for node in ast.walk(ast.parse(path.read_text(encoding="utf-8"))):
+            if isinstance(node, ast.Call):
+                name = getattr(node.func, "attr", None) or getattr(node.func, "id", None)
+                assert name not in DATA_READERS, f"{path.relative_to(REPO_ROOT)}:{node.lineno} calls {name}()"
 
 
 def test_the_deployed_model_files_are_committed_and_unmodified():
