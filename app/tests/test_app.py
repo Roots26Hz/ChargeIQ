@@ -8,12 +8,14 @@ import json
 import re
 import subprocess
 
+import pyarrow as pa
 import pytest
 from streamlit.testing.v1 import AppTest
 
 from conftest import APP_DIR, REPO_ROOT
 from content import home, vehicle
 from core import classification as clf
+from core import clustering as clu
 from core import regression as reg
 from ui import navigation
 
@@ -331,3 +333,79 @@ def test_adjusting_an_input_updates_the_estimate_and_reset_restores_it(app):
     page.button[0].click().run()
     assert page.session_state["bp_cycle_index"] == measured_inputs["cycle_index"]
     assert _metric(page, "Predicted SOH for these inputs") == f"{reg.predict(measured_inputs):.1f}%"
+
+
+# ---------------------------------------------------------------- driver chapters
+
+
+def test_charging_data_chapter_says_the_data_is_synthetic_and_shows_its_size(app, clu_meta):
+    page = _render(app, "charging_data")
+    assert any("synthetic" in i.value and "SYNTHETIC_EV_DATA.csv" in i.value for i in page.info)
+    text = _page_text(page)
+    assert f"{clu_meta['dataset']['source_rows']:,}" in text and f"{clu_meta['dataset']['sample_rows']:,}" in text
+
+
+def test_charging_model_chapter_tables_match_the_metadata(app, clu_meta):
+    page = _render(app, "charging_model")
+    tables = [d.value for d in page.dataframe]
+    groups = next(t for t in tables if "Sessions" in t.columns)
+    assert list(groups["Sessions"]) == [clu_meta["kmeans"]["sizes"][g] for g in ("0", "1", "2")]
+    scores = next(t for t in tables if "Silhouette rank" in t.columns)
+    assert list(scores["Silhouette rank"]) == [1, 2]  # K-Means ranks first on all three, as in cell 33
+    assert list(scores["Davies–Bouldin rank"]) == [1, 2] and list(scores["Calinski–Harabasz rank"]) == [1, 2]
+
+
+def _charging_page(app):
+    return _render(app, "charging_predict")
+
+
+def _session(page) -> dict:
+    return {f: page.session_state[f"cp_{f}"] for f in clu.input_fields()}
+
+
+def _shown_group(page) -> int:
+    card = next(m.value for m in page.markdown if "ciq-result-label" in m.value)
+    return int(re.search(r'ciq-result-label">Group (\d+)<', card).group(1))
+
+
+@pytest.mark.parametrize("group", [0, 1, 2])
+def test_each_groups_mean_session_is_placed_in_that_group(app, group):
+    page = _charging_page(app)
+    page.button_group(key="cp_preset").set_value(group).run()
+    assert not page.exception
+    assert _session(page) == clu.profile(group)
+    assert _shown_group(page) == group == clu.assign(_session(page)).cluster
+
+
+def test_moving_a_slider_reassigns_the_session_and_clears_the_preset(app):
+    page = _charging_page(app)
+    page.slider(key="cp_connectionTime_decimal").set_value(3.0).run()
+    assert page.session_state["cp_preset"] is None
+    assert _shown_group(page) == clu.assign(_session(page)).cluster
+
+
+def _chart_frames(page) -> list:
+    """The data behind every Vega-Lite chart on the page (AppTest exposes charts only as raw protos)."""
+    def walk(node):
+        for child in getattr(node, "children", {}).values():
+            yield child
+            yield from walk(child)
+
+    frames = []
+    for element in walk(page.main):
+        for dataset in getattr(getattr(element, "proto", None), "datasets", []):
+            frames.append(pa.ipc.open_stream(dataset.data.data).read_pandas())
+    return frames
+
+
+def test_the_map_marks_the_session_exactly_where_pca_point_puts_it(app):
+    page = _charging_page(app)
+    page.slider(key="cp_kWhDelivered").set_value(30.0).run()
+    session = _session(page)
+    for frame in _chart_frames(page):
+        here = frame[frame.astype(str).eq("This session").any(axis=1)]
+        if len(here):
+            numbers = here.select_dtypes("number").iloc[0].tolist()
+            assert all(any(abs(n - v) < 1e-9 for n in numbers) for v in clu.pca_point(session))
+            return
+    pytest.fail("no chart marks 'This session'")

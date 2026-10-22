@@ -13,10 +13,10 @@ from functools import lru_cache
 import pytest
 
 from conftest import REPO_ROOT
-from content import Example, Fact, Quote, battery, home, vehicle
+from content import Example, Fact, Quote, battery, driver, home, vehicle
 from core import classification as clf
 
-MODULES = (home, vehicle, battery)
+MODULES = (home, vehicle, battery, driver)
 ALL_QUOTES = [q for m in MODULES for q in m.QUOTES]
 ALL_FACTS = [f for m in MODULES for f in m.FACTS]
 
@@ -107,3 +107,9 @@ def test_battery_descriptions_quoted_from_the_data_readme():
     readme = (REPO_ROOT / battery.README).read_text(encoding="utf-8")
     for text in (battery.README_AMBIENT, battery.README_RESISTANCE):
         assert text in readme
+
+
+@pytest.mark.parametrize("hours, shown", [(0, "00:00"), (17.835, "17:50"), (2.724, "02:43"), (23.999, "24:00"),
+                                          (24.0, "24:00")])
+def test_connection_times_are_shown_as_clock_times(hours, shown):
+    assert driver.clock(hours) == shown

@@ -46,9 +46,9 @@ CHAPTERS: tuple[Chapter, ...] = (
     Chapter("battery_data", BATTERY, "Meet the data", ":material/table_chart:", ready=True),
     Chapter("battery_model", BATTERY, "How the model learns", ":material/insights:", ready=True),
     Chapter("battery_predict", BATTERY, "Estimate battery health", ":material/battery_charging_full:", ready=True),
-    Chapter("charging_data", DRIVER, "Meet the data", ":material/table_chart:", ready=False),
-    Chapter("charging_model", DRIVER, "How the model groups", ":material/hub:", ready=False),
-    Chapter("charging_predict", DRIVER, "Place a charging session", ":material/ev_station:", ready=False),
+    Chapter("charging_data", DRIVER, "Meet the data", ":material/table_chart:", ready=True),
+    Chapter("charging_model", DRIVER, "How the model groups", ":material/hub:", ready=True),
+    Chapter("charging_predict", DRIVER, "Place a charging session", ":material/ev_station:", ready=True),
     Chapter("conclusion", "Wrap-up", "Conclusion", ":material/flag:", ready=False),
 )
 
