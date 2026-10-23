@@ -89,9 +89,6 @@ Groups EV charging sessions — when they start, how long they last, how much en
 | 30–31 | Cluster profiles in original units |
 | 34–36 | Export of the sample and metrics; conclusion |
 
-> [!WARNING]
-> Cell 5 reads the dataset from `D:\5th Sem\ML\SYNTHETIC_EV_DATA.csv`. Change `CSV_PATH` to `../data/Clustering_Dataset/SYNTHETIC_EV_DATA.csv` before running it elsewhere.
-
 ---
 
 ## 🖼️ Figures
@@ -121,4 +118,4 @@ pip install -r ../requirements.txt
 jupyter lab regression.ipynb classification.ipynb clustering.ipynb
 ```
 
-Download the datasets first — see [`../data/README.md`](../data/README.md). All three notebooks are deterministic (`random_state=42`); the regression and classification notebooks run top to bottom with no manual steps, and the clustering notebook does once its dataset path is set (see above). Paths are relative to this folder, so launch Jupyter with `notebooks/` as the working directory.
+Download the datasets first — see [`../data/README.md`](../data/README.md). All three notebooks are deterministic (`random_state=42`) and run top to bottom with no manual steps. Paths are relative to this folder, so launch Jupyter with `notebooks/` as the working directory. Paths are relative to this folder, so launch Jupyter with `notebooks/` as the working directory.

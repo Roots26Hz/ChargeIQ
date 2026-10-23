@@ -698,9 +698,6 @@ jupyter lab notebooks/regression.ipynb notebooks/classification.ipynb notebooks/
 
 Then **Run All** on each. All three are deterministic (`random_state=42`).
 
-> [!WARNING]
-> `clustering.ipynb` currently reads its dataset from a fixed Windows path (`D:\5th Sem\ML\SYNTHETIC_EV_DATA.csv`, cell 5). Change `CSV_PATH` to `../data/Clustering_Dataset/SYNTHETIC_EV_DATA.csv` before running it on another machine.
-
 **7 · Run the app locally** *(optional — it is also [live](https://chargeiq.streamlit.app))*
 
 ```bash
@@ -744,7 +741,7 @@ Where each rubric criterion lives. Full mark-by-mark tracking is in **[PROGRESS.
 | B1 | Clustering — both algorithms | `clustering.ipynb` — K-Means (cell 15), Agglomerative (cell 21) | ✅ 2/2 |
 | B2 | Silhouette · DB · CH + Elbow + Dendrogram | Metrics (cells 23, 33), elbow (cell 13), dendrograms (cells 17, 19) | ✅ |
 | B3 | PCA-2D per algorithm + t-SNE | Cells 25, 27 (PCA) and 29 (t-SNE) | ✅ |
-| C1 | Code quality | All notebooks deterministic; the app is tested (259 tests) | 🚧 `clustering.ipynb` dataset path |
+| C1 | Code quality | All three notebooks deterministic, with repo-relative dataset paths; the app is tested (259 tests) | ✅ |
 | C2 | README & documentation | This README, [PROGRESS.md](PROGRESS.md), folder READMEs, [`app/DEPLOYMENT.md`](app/DEPLOYMENT.md) | ✅ |
 | C3 | GitHub history + `requirements.txt` | Granular commit history; pinned [`requirements.txt`](requirements.txt) and [`app/requirements.txt`](app/requirements.txt) | ✅ |
 | ⭐ | Bonus — GUI + public deployment | [chargeiq.streamlit.app](https://chargeiq.streamlit.app) — see [The Live App](#the-live-app) | ✅ +2 |

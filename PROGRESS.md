@@ -6,8 +6,8 @@
 
 <br>
 
-![Overall](https://img.shields.io/badge/Deliverables%20in%20repo-35%2F50%20marks-FFB300?style=for-the-badge)
-![Review 2](https://img.shields.io/badge/Review%202-16%2F25-FFB300?style=for-the-badge)
+![Overall](https://img.shields.io/badge/Deliverables%20in%20repo-36%2F50%20marks-FFB300?style=for-the-badge)
+![Review 2](https://img.shields.io/badge/Review%202-17%2F25-FFB300?style=for-the-badge)
 [![Bonus](https://img.shields.io/badge/🎁%20Bonus-GUI%20%2B%20deployment%20live%20·%20%2B2-2E7D32?style=flat-square)](https://chargeiq.streamlit.app)
 
 <img src="assets/badges/badge-review1-19-19.svg" alt="Review 1 implementation: 19 of 19" height="28">
@@ -22,17 +22,17 @@
 <img src="assets/badges/bar-classification-a.svg" alt="Classification Part A algorithms: 5 of 5 complete" width="640"><br>
 <img src="assets/badges/bar-classification-b.svg" alt="Classification Part B algorithms: 5 of 5 complete" width="640"><br>
 <img src="assets/badges/bar-clustering.svg" alt="Clustering algorithms: 2 of 2 complete" width="640"><br>
-<img src="assets/badges/bar-marks.svg" alt="Deliverables in repository: 35 of 50 marks" width="640">
+<img src="assets/badges/bar-marks.svg" alt="Deliverables in repository: 36 of 50 marks" width="640">
 
 **🖥️ Live app: [chargeiq.streamlit.app](https://chargeiq.streamlit.app)**
 
-*Last updated: 22 October 2026 · 93 commits · at [`35608e6`](https://github.com/Roots26Hz/ChargeIQ/commit/35608e6)*
+*Last updated: 23 October 2026 · 94 commits · at [`99ef597`](https://github.com/Roots26Hz/ChargeIQ/commit/99ef597)*
 
 </div>
 
 > **Legend** — ✅ done · 🚧 in progress · ⬜ not started · ⚠️ at risk
 >
-> **Badge meaning** — marks whose deliverable is physically in the repository. Review 1: **19/19** implementation marks done; the remaining 6 (presentation + viva) are earned on the day. Review 2: **16/25** — Part B (A1–A3), clustering (B1–B3), README (C2) and history + `requirements.txt` (C3). Code quality (C1, 1 mark) waits on one fix — the clustering notebook's dataset path — and presentation + viva (D, 8 marks) are earned on the day. The **+2 bonus** (GUI and public deployment) is delivered.
+> **Badge meaning** — marks whose deliverable is physically in the repository. Review 1: **19/19** implementation marks done; the remaining 6 (presentation + viva) are earned on the day. Review 2: **17/25** — Part B (A1–A3), clustering (B1–B3), code quality (C1), README (C2) and history + `requirements.txt` (C3); presentation + viva (D, 8 marks) are earned on the day. The **+2 bonus** (GUI and public deployment) is delivered.
 
 ---
 
@@ -141,9 +141,10 @@ Both reviews are in-person presentations. **Every team member must be able to ex
 | 05 | Figure gallery — 27 figures saved to `assets/figures/`, README gallery expanded, classification dataset path fixed | `e33bd0d` | ✅ |
 | 06 | Team table — GitHub IDs column, all three members filled in | `bba01ae` | ✅ |
 | 07 | Folder READMEs — `notebooks/` and `data/` documented; stale dataset copy removed | `bba01ae` | ✅ |
-| 08 | README and PROGRESS.md updated for Review 2 — Part B, clustering, the live app, AI disclosure; folder READMEs refreshed | *this update* | ✅ |
+| 08 | README and PROGRESS.md updated for Review 2 — Part B, clustering, the live app, AI disclosure; folder READMEs refreshed | `99ef597` | ✅ |
+| 09 | `clustering.ipynb` reads its dataset from `../data/Clustering_Dataset/` — C1 complete | *this update* | ✅ |
 
-> ✅ **93 granular commits, no bulk upload.** The guidelines state that a single commit containing all work scores **zero** on the GitHub criterion — the current history comfortably satisfies it.
+> ✅ **94 granular commits, no bulk upload.** The guidelines state that a single commit containing all work scores **zero** on the GitHub criterion — the current history comfortably satisfies it.
 
 ---
 
@@ -325,11 +326,11 @@ K-Means ranks first on all three metrics. Group sizes: K-Means 35,099 · 46,195 
 | B1 | Clustering implementation (both algorithms) | 4 | ✅ | K-Means + Agglomerative, K = 3 |
 | B2 | Silhouette / DB / CH + Elbow + Dendrogram | 2 | ✅ | Both algorithms; four linkages |
 | B3 | PCA-2D per algorithm + t-SNE for one | 2 | ✅ | PCA for both, t-SNE for K-Means |
-| C1 | Code quality | 1 | 🚧 | Fix `clustering.ipynb`'s hard-coded Windows dataset path (cell 5) |
+| C1 | Code quality | 1 | ✅ | All three notebooks use repo-relative dataset paths and run top to bottom |
 | C2 | README & documentation | 1 | ✅ | README, PROGRESS.md, folder READMEs, `app/DEPLOYMENT.md` |
-| C3 | GitHub history + `requirements.txt` | 1 | ✅ | 93 commits; pinned requirements |
+| C3 | GitHub history + `requirements.txt` | 1 | ✅ | 94 commits; pinned requirements |
 | D | Presentation & Viva | 8 | ⬜ | On the day — see the review walkthrough |
-| | **Implementation subtotal** | **17** | **✅ 16/17** | **C1 pending one fix** |
+| | **Implementation subtotal** | **17** | **✅ 17/17** | **every code deliverable is in the repository** |
 | ⭐ | Bonus — GUI / deployment | +2 | ✅ | [chargeiq.streamlit.app](https://chargeiq.streamlit.app) |
 
 ---
@@ -364,7 +365,7 @@ K-Means ranks first on all three metrics. Group sizes: K-Means 35,099 · 46,195 
 - [x] `requirements.txt` present with pinned versions *(C3)* — [requirements.txt](requirements.txt), plus [app/requirements.txt](app/requirements.txt)
 - [x] Single notebook per track; Guidelines-mandated repo layout; `.DS_Store` untracked *(C1/C3)*
 - [x] Folder-level documentation — [`notebooks/`](notebooks/README.md), [`data/`](data/README.md), [`app/`](app/README.md), [`models/`](models/README.md)
-- [ ] All notebooks run top-to-bottom without errors *(C1)* — ✅ regression, ✅ classification; **`clustering.ipynb` needs its dataset path changed** to `../data/Clustering_Dataset/SYNTHETIC_EV_DATA.csv`
+- [x] All notebooks run top-to-bottom without errors *(C1)* — regression, classification and clustering, each reading its dataset from `../data/`
 
 ### 🎁 Bonus *(up to +2)*
 
@@ -377,7 +378,6 @@ K-Means ranks first on all three metrics. Group sizes: K-Means 35,099 · 46,195 
 
 | | Item | Impact | Action |
 |:-:|:--|:--|:--|
-| 🟠 | **`clustering.ipynb` reads its data from `D:\5th Sem\ML\SYNTHETIC_EV_DATA.csv`** (cell 5) | The notebook will not run on any other machine — costs the C1 mark | Set `CSV_PATH = "../data/Clustering_Dataset/SYNTHETIC_EV_DATA.csv"` and re-run |
 | 🟡 | **Classification scores are near-perfect** (Decision Tree 0.9999) | Explained: `Electric Range = 0` means "range not researched" and carries the CAFV information that was dropped | Shown openly in [app Chapter 3](https://chargeiq.streamlit.app/vehicle-model); expect a viva question |
 | 🟡 | **Regression tuning used ordinary 5-fold CV** (cell 61), so cycles of one battery can sit in training and validation folds | Tuning scores are optimistic; the held-out evaluation on 6 unseen batteries and the GroupKFold CV (cell 78) are unaffected | Acknowledge in the viva; grouping the tuning folds is the natural next step |
 | 🟡 | **Severe feature collinearity** in the regression track — `ambient_temperature` correlates 0.94 with `charge_max_temp`, 0.82 with `charge_time_to_cv`, −0.78 with `Rct` | Linear coefficients cannot be read as isolated effects; some signs flip | Already documented in §C1.1; be ready to explain |

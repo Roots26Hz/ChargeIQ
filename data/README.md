@@ -104,6 +104,3 @@ Used by [`notebooks/clustering.ipynb`](../notebooks/clustering.ipynb). **Unsuper
 | `dayIndicator` | Day number, 1–29,600 — **not used for clustering** | — |
 
 No missing values and no duplicate rows. The notebook clusters a reproducible **100,000-row sample** (`random_state=42`), saved with both algorithms' labels as [`notebooks/EV_clustering_sample_with_labels.csv`](../notebooks/EV_clustering_sample_with_labels.csv) — which is all the app and its tests need.
-
-> [!WARNING]
-> `clustering.ipynb` cell 5 still reads the file from `D:\5th Sem\ML\SYNTHETIC_EV_DATA.csv`. Point `CSV_PATH` at `../data/Clustering_Dataset/SYNTHETIC_EV_DATA.csv` to use this folder.
