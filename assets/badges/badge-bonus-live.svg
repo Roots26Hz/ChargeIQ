@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated. Values are baked in: edit here if the metric changes. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="257" height="28" viewBox="0 0 257 28" role="img" aria-label="Bonus GUI + deployment: Live">
+  <title>Bonus GUI + deployment: Live</title>
+  <defs>
+    <linearGradient id="gS12" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#ffffff" stop-opacity="0.26"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+    <clipPath id="cS12"><rect x="0" y="0" width="257" height="28" rx="6"/></clipPath>
+  </defs>
+  <style>
+    .tS12 { font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+    .sS12 { animation: swS12 4.5s ease-in-out infinite; animation-delay: 2.2s; }
+    @keyframes swS12 {
+      0%   { transform: translateX(-337px); }
+      60%  { transform: translateX(337px); }
+      100% { transform: translateX(337px); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .sS12 { animation: none; opacity: 0; }
+    }
+  </style>
+  <g clip-path="url(#cS12)">
+    <rect width="257" height="28" rx="6" fill="#1b2430"/>
+    <rect x="206" y="0" width="51" height="28" fill="#2E7D32"/>
+    <path d="M15 14 L19.5 18.5 L28 9.5" stroke="#ffffff" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <text class="tS12" x="32" y="18.3" fill="#e8eef5" font-size="12.5" font-weight="600">Bonus GUI + deployment</text>
+    <text class="tS12" x="216" y="18.3" fill="#ffffff" font-size="12.5" font-weight="700">Live</text>
+    <rect class="sS12" x="0" y="0" width="257" height="28" fill="url(#gS12)"/>
+  </g>
+</svg>

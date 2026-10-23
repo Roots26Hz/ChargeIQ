@@ -8,13 +8,15 @@
 
 ![Overall](https://img.shields.io/badge/Deliverables%20in%20repo-36%2F50%20marks-FFB300?style=for-the-badge)
 ![Review 2](https://img.shields.io/badge/Review%202-17%2F25-FFB300?style=for-the-badge)
-[![Bonus](https://img.shields.io/badge/🎁%20Bonus-GUI%20%2B%20deployment%20live%20·%20%2B2-2E7D32?style=flat-square)](https://chargeiq.streamlit.app)
+[![Bonus GUI](https://img.shields.io/badge/🎁%20Bonus%20GUI-Live%20·%20%2B2-2E7D32?style=flat-square)](https://chargeiq.streamlit.app)
 
 <img src="assets/badges/badge-review1-19-19.svg" alt="Review 1 implementation: 19 of 19" height="28">
+<img src="assets/badges/badge-review2-17-17.svg" alt="Review 2 implementation: 17 of 17" height="28">
 <img src="assets/badges/badge-regression-10-10.svg" alt="Regression: 10 of 10 algorithms" height="28">
 <img src="assets/badges/badge-classification-a-5-5.svg" alt="Classification Part A: 5 of 5" height="28">
-<img src="https://img.shields.io/badge/Classification%20Part%20B-5%2F5-43A047?style=flat-square" alt="Classification Part B: 5 of 5" height="28">
-<img src="https://img.shields.io/badge/Clustering-2%2F2-43A047?style=flat-square" alt="Clustering: 2 of 2" height="28">
+<img src="assets/badges/badge-classification-b-5-5.svg" alt="Classification Part B: 5 of 5" height="28">
+<img src="assets/badges/badge-clustering-2-2.svg" alt="Clustering: 2 of 2 algorithms" height="28">
+<img src="assets/badges/badge-bonus-live.svg" alt="Bonus GUI and deployment: Live" height="28">
 
 <br>
 

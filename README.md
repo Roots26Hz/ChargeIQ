@@ -8,10 +8,11 @@
 
 <br>
 
-[![Open the live app](https://img.shields.io/badge/▶%20Open%20the%20live%20app-chargeiq.streamlit.app-2E7D32?style=for-the-badge&logo=streamlit&logoColor=white)](https://chargeiq.streamlit.app)
+[<img src="assets/badges/btn-app.svg" alt="Open the live app at chargeiq.streamlit.app" height="44">](https://chargeiq.streamlit.app)
 
 [<img src="assets/badges/btn-regression.svg" alt="Jump to the Regression track" height="44">](#-track-1--regression--battery-state-of-health)
 [<img src="assets/badges/btn-classification.svg" alt="Jump to the Classification track" height="44">](#-track-2--classification--electric-vehicle-type)
+[<img src="assets/badges/btn-clustering.svg" alt="Jump to the Clustering track" height="44">](#clustering-track)
 [<img src="assets/badges/btn-gallery.svg" alt="Jump to the Figure Gallery" height="44">](#figure-gallery)
 [<img src="assets/badges/btn-progress.svg" alt="Open the Progress Board" height="44">](PROGRESS.md)
 
@@ -25,16 +26,17 @@
 [![Streamlit](https://img.shields.io/badge/Streamlit-1.66.1-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://streamlit.io/)
 
 [![Course](https://img.shields.io/badge/23CSE301-Machine%20Learning-0A66C2?style=flat-square)](#)
-[![Review 2](https://img.shields.io/badge/Review%202-Implemented-2E7D32?style=flat-square)](PROGRESS.md)
-[![Bonus](https://img.shields.io/badge/Bonus-GUI%20%2B%20public%20deployment-2E7D32?style=flat-square)](#the-live-app)
 
 [<img src="assets/badges/badge-review1-complete.svg" alt="Review 1: Complete" height="28">](PROGRESS.md)
+[<img src="assets/badges/badge-review2-complete.svg" alt="Review 2: Complete" height="28">](PROGRESS.md)
 [<img src="assets/badges/badge-regression-10-10.svg" alt="Regression: 10 of 10 algorithms" height="28">](#-track-1--regression--battery-state-of-health)
 [<img src="assets/badges/badge-classification-a-5-5.svg" alt="Classification Part A: 5 of 5" height="28">](#-track-2--classification--electric-vehicle-type)
-[![Classification Part B: 5 of 5](https://img.shields.io/badge/Classification%20Part%20B-5%2F5-43A047?style=flat-square)](#classification-part-b)
-[![Clustering: 2 of 2](https://img.shields.io/badge/Clustering-2%2F2-43A047?style=flat-square)](#clustering-track)
+[<img src="assets/badges/badge-classification-b-5-5.svg" alt="Classification Part B: 5 of 5" height="28">](#classification-part-b)
+[<img src="assets/badges/badge-clustering-2-2.svg" alt="Clustering: 2 of 2 algorithms" height="28">](#clustering-track)
 [<img src="assets/badges/badge-best-r2.svg" alt="Best R-squared: 0.815" height="28">](#-results--all-10-algorithms)
 [<img src="assets/badges/badge-best-f1.svg" alt="Best weighted F1: 0.9999" height="28">](#classification-comparison)
+[<img src="assets/badges/badge-best-silhouette.svg" alt="Best Silhouette: 0.409" height="28">](#clustering-track)
+[<img src="assets/badges/badge-bonus-live.svg" alt="Bonus GUI and deployment: Live" height="28">](#the-live-app)
 
 </div>
 
