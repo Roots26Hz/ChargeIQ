@@ -5,7 +5,7 @@ Raw datasets for the three ChargeIQ tracks. **Each track has its own dataset —
 > [!IMPORTANT]
 > The dataset files are **not committed**. All three subfolders are gitignored (`.gitignore` → `#Datasets`), because they total roughly 770 MB — and the clustering file alone is over GitHub's 100 MB limit. Download them before running any notebook. The live app needs none of them.
 
-**Download:** the regression and classification datasets are available at this [OneDrive link](https://amritavishwavidyapeetham-my.sharepoint.com/:f:/g/personal/cb_sc_u4cse24664_cb_students_amrita_edu/IgAhvNV5RuhjTrFM-UakeblJAfpsW5pjQ2QUCYFpDwVBYF4?e=5itzGU).
+**Download:** the datasets are available at this [OneDrive link](https://amritavishwavidyapeetham-my.sharepoint.com/:f:/g/personal/cb_sc_u4cse24664_cb_students_amrita_edu/IgAhvNV5RuhjTrFM-UakeblJAfpsW5pjQ2QUCYFpDwVBYF4?e=5itzGU).
 
 ## Expected layout
 
